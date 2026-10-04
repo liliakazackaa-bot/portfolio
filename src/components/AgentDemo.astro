@@ -1,24 +1,29 @@
 ---
 import { site } from '../content/site';
 ---
-<div class="demo" data-agent-demo role="img" aria-label="Пример диалога ИИ-агента с клиентом: запись на консультацию">
-  <div class="demo__bar mono" aria-hidden="true">
-    <span class="demo__dots"><i></i><i></i><i></i></span>
-    <span>agent.demo — пример сценария</span>
+<div class="demo-wrap">
+  <div class="demo" data-agent-demo role="img" aria-label="Пример диалога ИИ-агента с клиентом: запись на консультацию">
+    <div class="demo__bar mono" aria-hidden="true">
+      <span class="demo__dots"><i></i><i></i><i></i></span>
+      <span>agent.demo — пример сценария</span>
+    </div>
+    <div class="demo__log" aria-hidden="true">
+      {site.agentDemo.map((l) => (
+        <p class={`demo__line demo__line--${l.from}`} data-line data-from={l.from}>
+          {l.from !== 'system' && <span class="demo__who mono">{l.from === 'client' ? 'клиент' : 'агент'}</span>}
+          <span class="demo__text">{l.text}</span>
+        </p>
+      ))}
+      <p class="demo__typing mono" data-typing hidden>печатает<span>…</span></p>
+    </div>
   </div>
-  <div class="demo__log" aria-hidden="true">
-    {site.agentDemo.map((l) => (
-      <p class={`demo__line demo__line--${l.from}`} data-line data-from={l.from}>
-        {l.from !== 'system' && <span class="demo__who mono">{l.from === 'client' ? 'клиент' : 'агент'}</span>}
-        <span class="demo__text">{l.text}</span>
-      </p>
-    ))}
-    <p class="demo__typing mono" data-typing hidden>печатает<span>…</span></p>
-  </div>
-  <button class="demo__replay mono" type="button" data-replay tabindex="-1" aria-hidden="true">↻ повторить</button>
+  <button class="demo__replay mono" type="button" data-replay aria-label="Повторить демо-диалог">↻ повторить</button>
 </div>
 
 <style>
+  .demo-wrap {
+    position: relative;
+  }
   .demo {
     position: relative;
     border: 1px solid var(--line);
@@ -103,8 +108,9 @@ import { site } from '../content/site';
     position: absolute;
     right: var(--s3);
     bottom: var(--s3);
+    min-height: 28px;
     padding: 4px 8px;
-    background: transparent;
+    background: var(--bg);
     border: 1px solid var(--line);
     border-radius: 2px;
     color: var(--text-dim);

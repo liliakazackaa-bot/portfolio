@@ -7,7 +7,8 @@ export function initAgentDemo(root: HTMLElement): void {
   if (reducedMotion()) return;
   const lines = Array.from(root.querySelectorAll<HTMLElement>('[data-line]'));
   const typing = root.querySelector<HTMLElement>('[data-typing]');
-  const replay = root.querySelector<HTMLButtonElement>('[data-replay]');
+  // Кнопка лежит рядом с картинкой (role="img" не может содержать интерактивных элементов).
+  const replay = root.parentElement?.querySelector<HTMLButtonElement>('[data-replay]');
   let timers: number[] = [];
 
   const reset = () => {

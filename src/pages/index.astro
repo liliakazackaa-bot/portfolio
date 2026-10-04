@@ -10,8 +10,9 @@ import Faq from '../components/Faq.astro';
 import Contact from '../components/Contact.astro';
 import MobileCta from '../components/MobileCta.astro';
 import { pageTitle, pageDescription } from '../content/site';
+import { buildJsonLd } from '../content/schema';
 ---
-<Base title={pageTitle} description={pageDescription}>
+<Base title={pageTitle} description={pageDescription} jsonLd={buildJsonLd()}>
   <Header slot="header" />
   <Hero />
   <Services />

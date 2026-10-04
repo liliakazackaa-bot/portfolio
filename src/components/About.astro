@@ -2,14 +2,14 @@
 import { Image } from 'astro:assets';
 import { site } from '../content/site';
 import SectionLabel from './SectionLabel.astro';
-import photo from '../assets/photo-placeholder.svg'; // ЗАГЛУШКА: замените на своё фото (jpg/png)
+import photo from '../assets/photo.png';
 ---
 <section class="section" id="about" aria-labelledby="about-title">
   <div class="container">
     <SectionLabel num="04" text="обо мне" />
     <div class="about">
       <figure class="about__photo reveal">
-        <Image src={photo} alt={`${site.name}, разработчик сайтов, приложений и ИИ-агентов`} width={800} height={1000} loading="lazy" />
+        <Image src={photo} alt={`${site.name} — сайты, приложения и ИИ-агенты`} widths={[420, 840]} sizes="(min-width: 900px) 420px, 100vw" loading="lazy" quality={80} />
         <figcaption class="mono dim">photo.jpg</figcaption>
       </figure>
       <div class="about__text">
@@ -54,6 +54,9 @@ import photo from '../assets/photo-placeholder.svg'; // ЗАГЛУШКА: зам
   }
   .about__photo :global(img) {
     width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 35%;
     border: 1px solid var(--line);
   }
   .about__photo figcaption {

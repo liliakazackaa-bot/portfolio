@@ -39,7 +39,7 @@ test('agent demo plays to the end and replays', async ({ page }) => {
   const last = demo.locator('[data-line]').last();
   await expect(last).toHaveText('✓ запись создана · заявка передана специалисту');
   await expect(last).toBeVisible({ timeout: 9000 });
-  await demo.locator('[data-replay]').click();
+  await page.locator('[data-replay]').click();
   await expect(last).toBeHidden();
   await expect(last).toBeVisible({ timeout: 9000 });
 });

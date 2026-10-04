@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../content/site';
+---
+<Base title={`Страница не найдена — ${site.name}`} description="Такой страницы нет." noindex>
+  <div class="container nf">
+    <h1 class="sr-only">Страница не найдена</h1>
+    <p class="mono line"><span class="dim">$</span> cd /страница</p>
+    <p class="mono err">error 404: такой страницы нет</p>
+    <p class="mono line"><span class="dim">$</span> <span class="cursor" aria-hidden="true">▊</span></p>
+    <a class="btn btn--primary" href="/">[ вернуться на главную ]</a>
+  </div>
+</Base>
+
+<style>
+  .nf {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: var(--s3);
+    font-size: clamp(1rem, 3vw, 1.5rem);
+  }
+  .err {
+    color: var(--magenta);
+    font-size: clamp(1.5rem, 6vw, 3rem);
+    font-weight: 500;
+  }
+  .btn {
+    margin-top: var(--s6);
+  }
+</style>
