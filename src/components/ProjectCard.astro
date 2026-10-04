@@ -1,0 +1,243 @@
+---
+import type { Project } from '../content/site';
+
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props;
+const color = { site: 'cyan', app: 'magenta', agent: 'lime' }[project.service];
+const kind = { site: 'сайт', app: 'приложение', agent: 'ИИ-агент' }[project.service];
+---
+<article class="card proj reveal" data-project data-color={color} data-spotlight>
+  <div class={`proj__cover proj__cover--${project.service}`} aria-hidden="true">
+    {project.service === 'site' && (
+      <div class="mock-browser">
+        <div class="mb-bar"><i></i><i></i><i></i></div>
+        <div class="mb-hero"><b></b><b class="short"></b><span></span></div>
+        <div class="mb-cols"><em></em><em></em><em></em></div>
+      </div>
+    )}
+    {project.service === 'app' && (
+      <div class="mock-app">
+        <div class="ma-head"><b></b></div>
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div class="ma-row"><span>{10 + i * 2}:00</span><em class={i === 1 ? 'on' : ''}></em></div>
+        ))}
+      </div>
+    )}
+    {project.service === 'agent' && (
+      <div class="mock-chat">
+        <p class="mc-in">Сколько стоит курс?</p>
+        <p class="mc-out">Есть два тарифа. Какая цель обучения?</p>
+        <p class="mc-sys">→ заявка менеджеру</p>
+      </div>
+    )}
+  </div>
+
+  <div class="proj__body">
+    <p class="proj__meta mono"><span class="proj__badge" data-badge>демо</span><span class="proj__kind">{kind}</span></p>
+    <h3>{project.title}</h3>
+    <dl>
+      <dt class="mono">задача</dt>
+      <dd>{project.task}</dd>
+      <dt class="mono">решение</dt>
+      <dd>{project.solution}</dd>
+      <dt class="mono">что получает клиент</dt>
+      <dd>{project.outcome}</dd>
+    </dl>
+    <ul class="proj__stack" aria-label="Стек">
+      {project.stack.map((s) => <li class="tag">{s}</li>)}
+    </ul>
+    {project.demoUrl ? (
+      <a class="proj__link mono" href={project.demoUrl} target="_blank" rel="noopener" data-demo-link>открыть демо ↗</a>
+    ) : (
+      <span class="proj__link proj__link--soon mono" data-demo-link>демо скоро</span>
+    )}
+  </div>
+</article>
+
+<style>
+  .proj {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .proj:hover {
+    border-color: color-mix(in oklch, var(--dir), transparent 50%);
+  }
+  .proj__cover {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    display: grid;
+    place-items: center;
+    border-bottom: 1px solid var(--line);
+    background:
+      radial-gradient(240px circle at var(--x, 50%) var(--y, 30%), color-mix(in oklch, var(--dir), transparent 85%), transparent 70%),
+      var(--bg);
+  }
+  .proj__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s4);
+    padding: var(--s5);
+    flex: 1;
+  }
+  .proj__meta {
+    display: flex;
+    gap: var(--s3);
+    align-items: center;
+    font-size: var(--fs-small);
+  }
+  .proj__badge {
+    padding: 1px 8px;
+    border: 1px solid var(--dir);
+    color: var(--dir);
+    border-radius: 2px;
+  }
+  .proj__kind {
+    color: var(--text-dim);
+  }
+  dl {
+    margin: 0;
+    display: grid;
+    gap: 4px;
+  }
+  dt {
+    font-size: 0.75rem;
+    color: var(--dir);
+    margin-top: var(--s2);
+  }
+  dd {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+  .proj__stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .proj__link {
+    margin-top: auto;
+    font-size: var(--fs-mono);
+  }
+  .proj__link--soon {
+    color: var(--text-dim);
+  }
+
+  /* CSS-макеты обложек */
+  .mock-browser {
+    width: 72%;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--surface);
+  }
+  .mb-bar {
+    display: flex;
+    gap: 4px;
+    padding: 6px;
+    border-bottom: 1px solid var(--line);
+  }
+  .mb-bar i,
+  .mock-browser i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--line);
+  }
+  .mb-hero {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px;
+  }
+  .mb-hero b {
+    height: 8px;
+    width: 80%;
+    background: var(--text-dim);
+    opacity: 0.5;
+  }
+  .mb-hero b.short {
+    width: 55%;
+  }
+  .mb-hero span {
+    height: 10px;
+    width: 30%;
+    margin-top: 4px;
+    background: var(--dir);
+  }
+  .mb-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    padding: 0 12px 12px;
+  }
+  .mb-cols em {
+    height: 28px;
+    border: 1px solid var(--line);
+  }
+  .mock-app {
+    width: 38%;
+    min-width: 110px;
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .ma-head b {
+    display: block;
+    height: 8px;
+    width: 60%;
+    background: var(--text-dim);
+    opacity: 0.5;
+  }
+  .ma-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    color: var(--text-dim);
+  }
+  .ma-row em {
+    flex: 1;
+    height: 14px;
+    border: 1px solid var(--line);
+  }
+  .ma-row em.on {
+    background: color-mix(in oklch, var(--dir), transparent 60%);
+    border-color: var(--dir);
+  }
+  .mock-chat {
+    width: 74%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
+  .mock-chat p {
+    padding: 6px 9px;
+    border-radius: 4px;
+    max-width: 80%;
+  }
+  .mc-in {
+    align-self: flex-end;
+    background: var(--surface);
+  }
+  .mc-out {
+    border: 1px solid color-mix(in oklch, var(--dir), transparent 60%);
+  }
+  .mc-sys {
+    font-family: var(--font-mono);
+    color: var(--dir);
+    padding-inline: 0 !important;
+  }
+</style>

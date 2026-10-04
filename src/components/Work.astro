@@ -1,0 +1,44 @@
+---
+import { site } from '../content/site';
+import SectionLabel from './SectionLabel.astro';
+import ProjectCard from './ProjectCard.astro';
+---
+<section class="section" id="work" aria-labelledby="work-title">
+  <div class="container">
+    <SectionLabel num="02" text="проекты" />
+    <h2 id="work-title" class="reveal">Проекты</h2>
+    <p class="note mono dim">// демо-проекты: показывают подход и качество. реальные кейсы появятся здесь по мере запуска.</p>
+
+    <div class="grid">
+      {site.projects.map((p) => <ProjectCard project={p} />)}
+    </div>
+
+    <div class="cta reveal">
+      <p>Хотите так же для своего дела?</p>
+      <a class="btn btn--primary" href="#contact">[ обсудить проект ]</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .note {
+    margin-top: var(--s4);
+    margin-bottom: var(--s7);
+    font-size: var(--fs-mono);
+    max-width: 70ch;
+  }
+  .grid {
+    display: grid;
+    gap: var(--s4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  }
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s4) var(--s5);
+    margin-top: var(--s7);
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+</style>

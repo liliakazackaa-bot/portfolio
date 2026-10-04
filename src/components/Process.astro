@@ -1,0 +1,107 @@
+---
+import { site } from '../content/site';
+import SectionLabel from './SectionLabel.astro';
+---
+<section class="section" id="process" aria-labelledby="process-title">
+  <div class="container">
+    <SectionLabel num="03" text="процесс" />
+    <h2 id="process-title" class="reveal">Как я работаю — без сюрпризов</h2>
+
+    <ol class="steps">
+      {site.steps.map((s) => (
+        <li class="step reveal">
+          <p class="step__head mono">
+            <span class="step__num">{s.num}</span>
+            <span data-step-tag>{s.tag}</span>
+          </p>
+          <h3>{s.title}</h3>
+          <p class="dim">{s.text}</p>
+        </li>
+      ))}
+    </ol>
+
+    <ul class="guarantees reveal">
+      {site.guarantees.map((g) => (
+        <li data-guarantee><span class="tick" aria-hidden="true">✓</span>{g}</li>
+      ))}
+    </ul>
+
+    <a class="btn btn--primary" href="#contact">[ начать с бесплатной оценки ]</a>
+  </div>
+</section>
+
+<style>
+  h2 {
+    margin-bottom: var(--s7);
+  }
+  .steps {
+    display: grid;
+    gap: 0;
+    margin: 0 0 var(--s7);
+    padding: 0;
+    list-style: none;
+  }
+  .step {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s2);
+    padding: 0 0 var(--s6) var(--s6);
+    border-left: 1px solid var(--line);
+  }
+  .step::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 4px;
+    width: 9px;
+    height: 9px;
+    background: var(--lime);
+  }
+  .step__head {
+    display: flex;
+    gap: var(--s3);
+    font-size: var(--fs-mono);
+    color: var(--lime);
+  }
+  .step__num {
+    color: var(--text-dim);
+  }
+  .step h3 {
+    font-size: 1.1875rem;
+  }
+  .step p.dim {
+    font-size: 0.9375rem;
+  }
+  @media (min-width: 900px) {
+    .steps {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: var(--s4);
+    }
+    .step {
+      padding: var(--s5) 0 0;
+      border-left: 0;
+      border-top: 1px solid var(--line);
+    }
+    .step::before {
+      left: 0;
+      top: -5px;
+    }
+  }
+  .guarantees {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s3) var(--s6);
+    margin: 0 0 var(--s6);
+    padding: 0;
+    list-style: none;
+  }
+  .guarantees li {
+    display: flex;
+    gap: var(--s2);
+  }
+  .tick {
+    color: var(--lime);
+    font-family: var(--font-mono);
+  }
+</style>
