@@ -1,0 +1,154 @@
+---
+import { site } from '../content/site';
+
+const links = [
+  { href: '#services', text: 'Услуги' },
+  { href: '#work', text: 'Проекты' },
+  { href: '#process', text: 'Процесс' },
+  { href: '#about', text: 'Обо мне' },
+  { href: '#faq', text: 'FAQ' },
+];
+---
+<div class="header-sentinel" data-header-sentinel aria-hidden="true"></div>
+<header class="header" data-header>
+  <div class="container header__row">
+    <a class="logo mono" href="#top" aria-label={`${site.logo} — на главную`}>
+      {site.logo}<span class="cursor" aria-hidden="true">▊</span>
+    </a>
+    <nav class="header__nav" aria-label="Основное меню">
+      {links.map((l) => <a href={l.href}>{l.text}</a>)}
+    </nav>
+    <a class="btn btn--primary header__cta" href="#contact">[ обсудить проект ]</a>
+    <button class="header__toggle mono" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu">
+      меню
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="mobile-menu" data-menu hidden role="dialog" aria-modal="true" aria-label="Меню">
+  <div class="container menu__inner">
+    <div class="menu__top">
+      <span class="mono dim">~/menu</span>
+      <button class="header__toggle mono" type="button" data-menu-close>закрыть</button>
+    </div>
+    <nav aria-label="Мобильное меню">
+      {links.map((l, i) => (
+        <a href={l.href}>
+          <span class="mono dim">0{i + 1}</span> {l.text}
+        </a>
+      ))}
+    </nav>
+    <a class="btn btn--primary" href="#contact">[ обсудить проект ]</a>
+  </div>
+</div>
+
+<style>
+  .header-sentinel {
+    position: absolute;
+    top: 0;
+    height: 40px;
+    width: 1px;
+  }
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid transparent;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .header {
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+  }
+  .header:global(.is-scrolled) {
+    background: color-mix(in oklch, var(--bg), transparent 12%);
+    backdrop-filter: blur(8px);
+    border-bottom-color: var(--line);
+  }
+  .header__row {
+    display: flex;
+    align-items: center;
+    gap: var(--s5);
+    min-height: 68px;
+  }
+  .logo {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.125rem;
+    margin-right: auto;
+  }
+  .header__nav {
+    display: none;
+    gap: var(--s5);
+  }
+  .header__nav a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.9375rem;
+  }
+  .header__nav a:hover {
+    color: var(--text);
+  }
+  .header__cta {
+    display: none;
+  }
+  .header__toggle {
+    min-height: 44px;
+    padding: 0 var(--s4);
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    font-size: var(--fs-mono);
+    cursor: pointer;
+  }
+  @media (min-width: 900px) {
+    .header__nav,
+    .header__cta {
+      display: flex;
+    }
+    .header__toggle {
+      display: none;
+    }
+  }
+  .menu {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: var(--bg);
+    overflow-y: auto;
+  }
+  .menu[hidden] {
+    display: none;
+  }
+  .menu__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s6);
+    padding-block: var(--s3) var(--s7);
+  }
+  .menu__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 56px;
+  }
+  .menu nav {
+    display: flex;
+    flex-direction: column;
+  }
+  .menu nav a {
+    padding: var(--s4) 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 1.75rem;
+    font-weight: 700;
+  }
+  .menu nav a .mono {
+    font-size: var(--fs-mono);
+    font-weight: 400;
+    margin-right: var(--s3);
+  }
+</style>

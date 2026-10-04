@@ -1,6 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
 import { pageTitle, pageDescription } from '../content/site';
 ---
 <Base title={pageTitle} description={pageDescription}>
+  <Header slot="header" />
+  <Hero />
 </Base>
+
+<script>
+  import '../scripts/main';
+</script>
