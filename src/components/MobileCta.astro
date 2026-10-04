@@ -1,0 +1,28 @@
+<div class="mcta" data-mobile-cta hidden>
+  <a class="btn btn--primary" href="#contact">[ обсудить проект ]</a>
+</div>
+
+<style>
+  .mcta {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    padding: var(--s3) 16px calc(var(--s3) + env(safe-area-inset-bottom));
+    background: color-mix(in oklch, var(--bg), transparent 10%);
+    border-top: 1px solid var(--line);
+    backdrop-filter: blur(8px);
+  }
+  .mcta[hidden] {
+    display: none;
+  }
+  .mcta .btn {
+    width: 100%;
+  }
+  @media (min-width: 900px) {
+    .mcta {
+      display: none !important;
+    }
+  }
+</style>

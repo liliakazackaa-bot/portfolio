@@ -1,0 +1,266 @@
+---
+import { site } from '../content/site';
+
+const services = [
+  { value: 'site', label: 'Сайт', color: 'cyan' },
+  { value: 'app', label: 'Приложение', color: 'magenta' },
+  { value: 'agent', label: 'ИИ-агент', color: 'lime' },
+  { value: 'unknown', label: 'Не знаю', color: 'cyan' },
+];
+const places = [
+  { value: 'telegram', label: 'Telegram' },
+  { value: 'site', label: 'Сайт' },
+  { value: 'crm', label: 'CRM' },
+  { value: 'unknown', label: 'Пока не знаю' },
+];
+const budgets = ['до 50 тыс', '50–150 тыс', '150–500 тыс', 'больше', 'Пока не знаю'];
+---
+<div class="form-wrap">
+  <form
+    class="form"
+    data-form
+    method="POST"
+    action="https://api.web3forms.com/submit"
+    data-key={site.web3formsKey}
+  >
+    <input type="hidden" name="access_key" value={site.web3formsKey} />
+    <input type="hidden" name="subject" value="Заявка с сайта" />
+    <input type="hidden" name="redirect" value={`${site.siteUrl}/#contact`} />
+    <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+    <div class="field">
+      <label for="f-name">Имя <span class="req" aria-hidden="true">*</span></label>
+      <input id="f-name" name="name" type="text" autocomplete="name" required minlength="2" maxlength="60" aria-describedby="name-error" placeholder="Анна" />
+      <p class="err" id="name-error"></p>
+    </div>
+
+    <div class="field">
+      <label for="f-contact">Telegram или email <span class="req" aria-hidden="true">*</span></label>
+      <input id="f-contact" name="contact" type="text" autocomplete="email" required aria-describedby="contact-error" placeholder="@username или name@mail.ru" />
+      <p class="err" id="contact-error"></p>
+    </div>
+
+    <fieldset class="field" aria-describedby="service-error">
+      <legend>Что нужно <span class="req" aria-hidden="true">*</span></legend>
+      <div class="chips">
+        {services.map((s) => (
+          <label class="chip" data-color={s.color}>
+            <input type="radio" name="service" value={s.value} required />
+            <span>{s.label}</span>
+          </label>
+        ))}
+      </div>
+      <p class="err" id="service-error"></p>
+    </fieldset>
+
+    <fieldset class="field" data-agent-place hidden>
+      <legend>Где будет работать агент</legend>
+      <div class="chips">
+        {places.map((p) => (
+          <label class="chip" data-color="lime">
+            <input type="radio" name="agentPlace" value={p.value} />
+            <span>{p.label}</span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+
+    <div class="field">
+      <label for="f-task">Задача <span class="opt mono">необязательно</span></label>
+      <textarea id="f-task" name="task" rows="4" maxlength="1000" aria-describedby="task-error task-count" placeholder="Коротко: что хотите получить и к какому сроку"></textarea>
+      <p class="row-between">
+        <span class="err" id="task-error"></span>
+        <span class="count mono dim" id="task-count" data-count>0 / 1000</span>
+      </p>
+    </div>
+
+    <fieldset class="field">
+      <legend>Бюджет <span class="opt mono">необязательно</span></legend>
+      <div class="chips">
+        {budgets.map((b) => (
+          <label class="chip" data-color="cyan">
+            <input type="radio" name="budget" value={b} />
+            <span>{b}</span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+
+    <div class="field">
+      <label class="consent">
+        <input type="checkbox" name="consent" value="yes" required aria-describedby="consent-error" />
+        <span>Согласен на <a href="/privacy" target="_blank">обработку персональных данных</a></span>
+      </label>
+      <p class="err" id="consent-error"></p>
+    </div>
+
+    <button class="btn btn--primary submit" type="submit" data-submit>[ получить план и оценку ]</button>
+    <p class="err" data-form-error role="alert"></p>
+  </form>
+
+  <div class="success" data-form-success hidden tabindex="-1">
+    <p class="mono success__ok">✓ заявка принята</p>
+    <p>Отвечу в течение дня. Если срочно — напишите в <a href={site.telegramUrl} target="_blank" rel="noopener">Telegram</a>.</p>
+  </div>
+  <p class="sr-only" data-form-status aria-live="polite"></p>
+</div>
+
+<style>
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s5);
+  }
+  .botcheck {
+    display: none;
+  }
+  fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s2);
+  }
+  label,
+  legend {
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+  legend {
+    margin-bottom: var(--s2);
+  }
+  .req {
+    color: var(--lime);
+  }
+  .opt {
+    margin-left: var(--s2);
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text-dim);
+  }
+  input[type='text'],
+  textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: var(--s3) var(--s4);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    color: var(--text);
+    font: inherit;
+    font-size: 1rem;
+  }
+  textarea {
+    resize: vertical;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: color-mix(in oklch, var(--text-dim), transparent 30%);
+  }
+  input[type='text']:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 0;
+    border-color: transparent;
+  }
+  [aria-invalid='true'] {
+    border-color: var(--magenta) !important;
+  }
+  .err {
+    min-height: 1.2em;
+    font-family: var(--font-mono);
+    font-size: var(--fs-small);
+    color: var(--magenta);
+  }
+  .err:empty {
+    min-height: 0;
+  }
+  .row-between {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s3);
+  }
+  .count {
+    font-size: 0.75rem;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s2);
+  }
+  .chip {
+    position: relative;
+    display: inline-flex;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 400;
+    cursor: pointer;
+  }
+  .chip input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+  .chip span {
+    padding: 9px 14px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    color: var(--text-dim);
+  }
+  .chip:hover span {
+    border-color: var(--dir);
+    color: var(--text);
+  }
+  .chip:has(input:checked) span {
+    background: var(--dir);
+    border-color: var(--dir);
+    color: var(--on-accent);
+  }
+  .chip:has(input:focus-visible) span {
+    outline: 2px solid var(--cyan);
+    outline-offset: 2px;
+  }
+  .consent {
+    display: flex;
+    gap: var(--s3);
+    align-items: flex-start;
+    font-weight: 400;
+    color: var(--text-dim);
+    cursor: pointer;
+  }
+  .consent input {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    accent-color: var(--lime);
+    flex: none;
+  }
+  .submit {
+    align-self: flex-start;
+  }
+  .submit:disabled {
+    opacity: 0.7;
+    cursor: progress;
+  }
+  @media (max-width: 599px) {
+    .submit {
+      align-self: stretch;
+    }
+  }
+  .success {
+    padding: var(--s6);
+    border: 1px solid var(--lime);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .success__ok {
+    color: var(--lime);
+    font-size: 1.25rem;
+    margin-bottom: var(--s2);
+  }
+</style>

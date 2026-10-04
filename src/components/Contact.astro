@@ -1,0 +1,60 @@
+---
+import { site } from '../content/site';
+import SectionLabel from './SectionLabel.astro';
+import ContactForm from './ContactForm.astro';
+---
+<section class="section" id="contact" aria-labelledby="contact-title">
+  <div class="container">
+    <SectionLabel num="06" text="связаться" />
+    <h2 id="contact-title" class="reveal">Расскажите о задаче — через день пришлю план и оценку</h2>
+    <p class="lead dim">Первая консультация бесплатно, без обязательств.</p>
+
+    <div class="contact">
+      <ContactForm />
+      <aside class="alt card">
+        <p class="alt__title">Удобнее написать напрямую?</p>
+        <a class="alt__link mono" href={site.telegramUrl} target="_blank" rel="noopener">telegram: {site.telegram} ↗</a>
+        <a class="alt__link mono" href={`mailto:${site.email}`}>email: {site.email} ↗</a>
+        <p class="mono dim alt__note">отвечаю в течение дня, пн–пт</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  h2 {
+    max-width: 20ch;
+  }
+  .lead {
+    margin: var(--s4) 0 var(--s7);
+    font-size: 1.125rem;
+  }
+  .contact {
+    display: grid;
+    gap: var(--s7);
+  }
+  @media (min-width: 900px) {
+    .contact {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+      align-items: start;
+    }
+  }
+  .alt {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s3);
+    padding: var(--s5);
+  }
+  .alt__title {
+    font-weight: 500;
+    margin-bottom: var(--s2);
+  }
+  .alt__link {
+    font-size: 0.9375rem;
+    overflow-wrap: anywhere;
+  }
+  .alt__note {
+    margin-top: var(--s2);
+    font-size: var(--fs-small);
+  }
+</style>

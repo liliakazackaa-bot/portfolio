@@ -4,9 +4,13 @@ import { initMobileMenu } from './mobile-menu';
 import { initTypewriter } from './typewriter';
 import { initAgentDemo } from './agent-demo';
 import { initSpotlight } from './spotlight';
+import { initForm } from './form';
+import { initMobileCta } from './mobile-cta';
 
 initHeader();
 initMobileMenu();
 document.querySelectorAll<HTMLElement>('[data-typewriter]').forEach((el) => initTypewriter(el));
 document.querySelectorAll<HTMLElement>('[data-agent-demo]').forEach((el) => initAgentDemo(el));
 initSpotlight();
+document.querySelectorAll<HTMLFormElement>('[data-form]').forEach((f) => initForm(f));
+initMobileCta();
