@@ -6,6 +6,7 @@ import { initAgentDemo } from './agent-demo';
 import { initSpotlight } from './spotlight';
 import { initForm } from './form';
 import { initMobileCta } from './mobile-cta';
+import { initReveal } from './reveal';
 
 initHeader();
 initMobileMenu();
@@ -14,3 +15,4 @@ document.querySelectorAll<HTMLElement>('[data-agent-demo]').forEach((el) => init
 initSpotlight();
 document.querySelectorAll<HTMLFormElement>('[data-form]').forEach((f) => initForm(f));
 initMobileCta();
+initReveal();
