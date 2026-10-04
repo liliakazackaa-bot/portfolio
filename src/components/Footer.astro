@@ -1,0 +1,48 @@
+---
+import { site } from '../content/site';
+---
+<footer class="footer">
+  <div class="container footer__inner">
+    <p class="footer__row">
+      <span>© 2026 {site.name}</span>
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+      <a href={site.telegramUrl} target="_blank" rel="noopener">telegram</a>
+      <a href="/privacy">политика конфиденциальности</a>
+    </p>
+    <p class="mono dim footer__exit">$ exit — спасибо, что дочитали_</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: var(--section-gap);
+    border-top: 1px solid var(--line);
+    padding-block: var(--s6) var(--s7);
+  }
+  .footer__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s4);
+  }
+  .footer__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s3) var(--s5);
+    font-size: 0.9375rem;
+    color: var(--text-dim);
+  }
+  .footer__row a {
+    color: var(--text-dim);
+  }
+  .footer__row a:hover {
+    color: var(--cyan);
+  }
+  .footer__exit {
+    font-size: var(--fs-small);
+  }
+  @media (max-width: 899px) {
+    .footer {
+      padding-bottom: 96px;
+    }
+  }
+</style>

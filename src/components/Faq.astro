@@ -1,0 +1,104 @@
+---
+import { site } from '../content/site';
+import SectionLabel from './SectionLabel.astro';
+---
+<section class="section" id="faq" aria-labelledby="faq-title">
+  <div class="container faq">
+    <div>
+      <SectionLabel num="05" text="вопросы" />
+      <h2 id="faq-title" class="reveal">Частые вопросы</h2>
+    </div>
+    <div>
+      <div class="faq__list">
+        {site.faq.map((f, i) => (
+          <details class="faq__item">
+            <summary>
+              <span class="faq__num mono">{String(i + 1).padStart(2, '0')}</span>
+              <span class="faq__q">{f.q}</span>
+              <span class="faq__icon mono" aria-hidden="true">+</span>
+            </summary>
+            <p class="faq__a">{f.a}</p>
+          </details>
+        ))}
+      </div>
+      <p class="faq__more dim">
+        Не нашли ответа? <a class="mono" href={site.telegramUrl} target="_blank" rel="noopener">спросите в telegram ↗</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    display: grid;
+    gap: var(--s6);
+  }
+  @media (min-width: 900px) {
+    .faq {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    }
+  }
+  .faq__list {
+    border-top: 1px solid var(--line);
+  }
+  .faq__item {
+    border-bottom: 1px solid var(--line);
+  }
+  summary {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: var(--s4);
+    align-items: baseline;
+    padding: var(--s5) 0;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 500;
+    font-size: 1.125rem;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary:hover .faq__q {
+    color: var(--lime);
+  }
+  .faq__num {
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+  }
+  .faq__icon {
+    color: var(--lime);
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+  details[open] .faq__icon {
+    transform: rotate(45deg);
+  }
+  .faq__a {
+    padding: 0 0 var(--s5) calc(var(--s4) + 2ch);
+    color: var(--text-dim);
+    max-width: 62ch;
+  }
+  .faq__more {
+    margin-top: var(--s5);
+  }
+  @supports (interpolate-size: allow-keywords) {
+    @media (prefers-reduced-motion: no-preference) {
+      .faq__list {
+        interpolate-size: allow-keywords;
+      }
+      .faq__item::details-content {
+        block-size: 0;
+        overflow: hidden;
+        transition:
+          block-size 0.3s ease,
+          content-visibility 0.3s allow-discrete;
+      }
+      .faq__item[open]::details-content {
+        block-size: auto;
+      }
+      .faq__icon {
+        transition: transform 0.2s;
+      }
+    }
+  }
+</style>

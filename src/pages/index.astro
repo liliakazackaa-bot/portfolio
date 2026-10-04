@@ -5,6 +5,8 @@ import Hero from '../components/Hero.astro';
 import Services from '../components/Services.astro';
 import Work from '../components/Work.astro';
 import Process from '../components/Process.astro';
+import About from '../components/About.astro';
+import Faq from '../components/Faq.astro';
 import { pageTitle, pageDescription } from '../content/site';
 ---
 <Base title={pageTitle} description={pageDescription}>
@@ -13,6 +15,8 @@ import { pageTitle, pageDescription } from '../content/site';
   <Services />
   <Work />
   <Process />
+  <About />
+  <Faq />
 </Base>
 
 <script>

@@ -1,0 +1,89 @@
+---
+import { Image } from 'astro:assets';
+import { site } from '../content/site';
+import SectionLabel from './SectionLabel.astro';
+import photo from '../assets/photo-placeholder.svg'; // ЗАГЛУШКА: замените на своё фото (jpg/png)
+---
+<section class="section" id="about" aria-labelledby="about-title">
+  <div class="container">
+    <SectionLabel num="04" text="обо мне" />
+    <div class="about">
+      <figure class="about__photo reveal">
+        <Image src={photo} alt={`${site.name}, разработчик сайтов, приложений и ИИ-агентов`} width={800} height={1000} loading="lazy" />
+        <figcaption class="mono dim">photo.jpg</figcaption>
+      </figure>
+      <div class="about__text">
+        <h2 id="about-title" class="reveal">Обо мне</h2>
+        {site.about.map((p) => <p class="reveal">{p}</p>)}
+        <ul class="about__stack reveal" data-stack aria-label="Стек">
+          {site.stack.map((s) => <li class="tag">{s}</li>)}
+        </ul>
+        <p class="about__links mono reveal">
+          <a href={site.github} target="_blank" rel="noopener">github ↗</a>
+          <a href={site.telegramUrl} target="_blank" rel="noopener">telegram ↗</a>
+          <a href={`mailto:${site.email}`}>email ↗</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    display: grid;
+    gap: var(--s7);
+  }
+  @media (min-width: 900px) {
+    .about {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      align-items: start;
+    }
+  }
+  .about__photo {
+    position: relative;
+    margin: 0;
+    max-width: 420px;
+    padding: 10px;
+    --c: var(--lime);
+    background:
+      linear-gradient(var(--c), var(--c)) top left / 18px 2px,
+      linear-gradient(var(--c), var(--c)) top left / 2px 18px,
+      linear-gradient(var(--c), var(--c)) bottom right / 18px 2px,
+      linear-gradient(var(--c), var(--c)) bottom right / 2px 18px;
+    background-repeat: no-repeat;
+  }
+  .about__photo :global(img) {
+    width: 100%;
+    border: 1px solid var(--line);
+  }
+  .about__photo figcaption {
+    margin-top: var(--s2);
+    font-size: 0.75rem;
+  }
+  .about__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s5);
+  }
+  .about__text > p {
+    font-size: 1.1875rem;
+    max-width: 56ch;
+  }
+  .about__stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .about__stack .tag {
+    border-color: color-mix(in oklch, var(--cyan), transparent 60%);
+    color: var(--text);
+  }
+  .about__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s5);
+  }
+</style>
