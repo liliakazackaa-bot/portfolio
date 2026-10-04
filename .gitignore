@@ -3,3 +3,5 @@ dist/
 .astro/
 .superpowers/
 .env
+test-results/
+playwright-report/
