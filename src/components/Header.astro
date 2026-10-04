@@ -19,8 +19,8 @@ const links = [
       {links.map((l) => <a href={l.href}>{l.text}</a>)}
     </nav>
     <a class="btn btn--primary header__cta" href="#contact">[ обсудить проект ]</a>
-    <button class="header__toggle mono" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu">
-      меню
+    <button class="header__toggle burger" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label="Открыть меню">
+      <span class="burger__icon" data-burger aria-hidden="true"><span></span><span></span><span></span></span>
     </button>
   </div>
 </header>
@@ -29,7 +29,9 @@ const links = [
   <div class="container menu__inner">
     <div class="menu__top">
       <span class="mono dim">~/menu</span>
-      <button class="header__toggle mono" type="button" data-menu-close>закрыть</button>
+      <button class="header__toggle burger is-open" type="button" data-menu-close aria-label="Закрыть меню">
+        <span class="burger__icon" aria-hidden="true"><span></span><span></span><span></span></span>
+      </button>
     </div>
     <nav aria-label="Мобильное меню">
       {links.map((l, i) => (
@@ -102,6 +104,52 @@ const links = [
     border-radius: 2px;
     font-size: var(--fs-mono);
     cursor: pointer;
+  }
+  .burger {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+  }
+  .burger__icon {
+    position: relative;
+    display: block;
+    width: 22px;
+    height: 16px;
+  }
+  .burger__icon span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--lime);
+  }
+  .burger__icon span:nth-child(1) {
+    top: 0;
+  }
+  .burger__icon span:nth-child(2) {
+    top: 7px;
+  }
+  .burger__icon span:nth-child(3) {
+    top: 14px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .burger__icon span {
+      transition: transform 0.25s ease, opacity 0.2s;
+    }
+  }
+  .burger.is-open .burger__icon span:nth-child(1),
+  .header__toggle[aria-expanded='true'] .burger__icon span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .burger.is-open .burger__icon span:nth-child(2),
+  .header__toggle[aria-expanded='true'] .burger__icon span:nth-child(2) {
+    opacity: 0;
+  }
+  .burger.is-open .burger__icon span:nth-child(3),
+  .header__toggle[aria-expanded='true'] .burger__icon span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
   }
   @media (min-width: 900px) {
     .header__nav,

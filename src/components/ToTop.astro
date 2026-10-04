@@ -1,0 +1,42 @@
+<button class="totop" type="button" data-to-top aria-label="Наверх" hidden>
+  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"/></svg>
+</button>
+
+<style>
+  .totop {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 45;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    background: var(--surface);
+    color: var(--lime);
+    border: 1px solid var(--lime);
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  .totop:hover {
+    background: var(--lime);
+    color: var(--on-accent);
+  }
+  @media (max-width: 899px) {
+    /* над закреплённой мобильной кнопкой */
+    .totop {
+      bottom: 84px;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .totop:not([hidden]) {
+      animation: totop-in 0.25s ease-out;
+    }
+  }
+  @keyframes totop-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+</style>

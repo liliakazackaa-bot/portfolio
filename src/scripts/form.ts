@@ -92,6 +92,15 @@ export function initForm(form: HTMLFormElement, endpoint = 'https://api.web3form
     show('task', validateTask(task.value));
   });
 
+  const showSuccess = () => {
+    form.hidden = true;
+    if (success) {
+      success.hidden = false;
+      success.focus();
+    }
+    if (status) status.textContent = 'Заявка принята. Отвечу в течение дня.';
+  };
+
   const setSending = (on: boolean) => {
     sending = on;
     if (!submit) return;
@@ -121,6 +130,12 @@ export function initForm(form: HTMLFormElement, endpoint = 'https://api.web3form
 
     setSending(true);
     try {
+      // Демо-режим (ключ Web3Forms — заглушка): ничего не отправляем, только показываем успех.
+      if (form.dataset.demo === 'true') {
+        await new Promise((r) => setTimeout(r, 700));
+        showSuccess();
+        return;
+      }
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -128,12 +143,7 @@ export function initForm(form: HTMLFormElement, endpoint = 'https://api.web3form
       });
       const json = await res.json().catch(() => ({}));
       if (!res.ok || json.success !== true) throw new Error(json.message ?? `HTTP ${res.status}`);
-      form.hidden = true;
-      if (success) {
-        success.hidden = false;
-        success.focus();
-      }
-      if (status) status.textContent = 'Заявка принята. Отвечу в течение дня.';
+      showSuccess();
     } catch {
       if (failBox) failBox.textContent = FAIL_TEXT;
       setSending(false);

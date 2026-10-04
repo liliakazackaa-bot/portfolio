@@ -43,6 +43,12 @@ export interface ChatLine {
   text: string;
 }
 
+export interface Stat {
+  value: number;
+  suffix: string;
+  label: string;
+}
+
 export interface Site {
   name: string;
   logo: string;
@@ -62,6 +68,7 @@ export interface Site {
   about: string[];
   stack: string[];
   faq: Faq[];
+  stats: Stat[];
 }
 
 const name = 'Лилия';
@@ -171,6 +178,14 @@ export const site: Site = {
   about: [
     `Я ${name}, ${yearsOfExperience} лет делаю цифровые продукты. Начинала с сайтов, потом пришли приложения, а сейчас строю ИИ-агентов, которые снимают с людей рутину.`,
     'Мне важно не просто сдать проект, а чтобы он работал на ваш бизнес: приводил клиентов, экономил время и не требовал постоянного присмотра.',
+  ],
+
+  // Только факты из условий работы — никаких выдуманных метрик.
+  stats: [
+    { value: 3, suffix: '', label: 'направления: сайты, приложения и ИИ-агенты' },
+    { value: 2, suffix: ' нед.', label: 'до первой версии продукта' },
+    { value: 30, suffix: ' дней', label: 'бесплатных правок после запуска' },
+    { value: 24, suffix: '/7', label: 'ИИ-агент отвечает вашим клиентам' },
   ],
 
   stack: ['Astro', 'React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'PostgreSQL', 'LLM API', 'RAG', 'Telegram Bot API'],

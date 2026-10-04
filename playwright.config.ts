@@ -22,7 +22,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npm run build && npm run preview -- --port 4321 --ignore-lock',
+    command: 'npm run single && npm run preview -- --port 4321 --ignore-lock',
     url: 'http://localhost:4321',
     reuseExistingServer: false,
     timeout: 180_000,

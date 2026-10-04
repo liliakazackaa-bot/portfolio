@@ -7,6 +7,8 @@ import { initSpotlight } from './spotlight';
 import { initForm } from './form';
 import { initMobileCta } from './mobile-cta';
 import { initReveal } from './reveal';
+import { initToTop } from './to-top';
+import { initCounters } from './counters';
 
 initHeader();
 initMobileMenu();
@@ -16,3 +18,5 @@ initSpotlight();
 document.querySelectorAll<HTMLFormElement>('[data-form]').forEach((f) => initForm(f));
 initMobileCta();
 initReveal();
+initToTop();
+initCounters();

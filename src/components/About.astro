@@ -25,6 +25,17 @@ import photo from '../assets/photo.png';
         </p>
       </div>
     </div>
+
+    <ul class="stats" data-stats aria-label="Коротко в цифрах">
+      {site.stats.map((s) => (
+        <li class="stat" data-counter>
+          <p class="stat__num">
+            <span data-count-value data-count-to={s.value}>{s.value}</span><span class="stat__suffix">{s.suffix}</span>
+          </p>
+          <p class="stat__label mono dim">{s.label}</p>
+        </li>
+      ))}
+    </ul>
   </div>
 </section>
 
@@ -83,6 +94,35 @@ import photo from '../assets/photo.png';
   .about__stack .tag {
     border-color: color-mix(in oklch, var(--cyan), transparent 60%);
     color: var(--text);
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: var(--s4);
+    margin: var(--s8) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .stat {
+    padding: var(--s5);
+    border-top: 2px solid var(--lime);
+    background: var(--surface);
+  }
+  .stat__num {
+    font-size: clamp(2.5rem, 6vw, 3.75rem);
+    font-weight: 800;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: var(--lime);
+  }
+  .stat__suffix {
+    font-size: 0.5em;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .stat__label {
+    margin-top: var(--s3);
+    font-size: var(--fs-small);
   }
   .about__links {
     display: flex;

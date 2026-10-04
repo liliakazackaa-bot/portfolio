@@ -10,7 +10,8 @@
     "check": "astro check",
     "test:unit": "node --import tsx --test tests/unit/*.test.ts",
     "test:e2e": "playwright test",
-    "test": "npm run test:unit && npm run test:e2e"
+    "test": "npm run test:unit && npm run test:e2e",
+    "single": "astro build && node scripts/build-single.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

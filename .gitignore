@@ -8,3 +8,4 @@ playwright-report/
 .shot.mjs
 .shot2.mjs
 .shots.sh
+dist-single/

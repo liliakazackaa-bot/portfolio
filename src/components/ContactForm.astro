@@ -22,6 +22,7 @@ const budgets = ['до 50 тыс', '50–150 тыс', '150–500 тыс', 'бо�
     method="POST"
     action="https://api.web3forms.com/submit"
     data-key={site.web3formsKey}
+    data-demo={site.web3formsKey === 'YOUR_ACCESS_KEY' ? 'true' : 'false'}
   >
     <input type="hidden" name="access_key" value={site.web3formsKey} />
     <input type="hidden" name="subject" value="Заявка с сайта" />
@@ -35,7 +36,7 @@ const budgets = ['до 50 тыс', '50–150 тыс', '150–500 тыс', 'бо�
     </div>
 
     <div class="field">
-      <label for="f-contact">Telegram или email <span class="req" aria-hidden="true">*</span></label>
+      <label for="f-contact">Email или Telegram <span class="req" aria-hidden="true">*</span></label>
       <input id="f-contact" name="contact" type="text" autocomplete="email" required aria-describedby="contact-error" placeholder="@username или name@mail.ru" />
       <p class="err" id="contact-error"></p>
     </div>
@@ -66,7 +67,7 @@ const budgets = ['до 50 тыс', '50–150 тыс', '150–500 тыс', 'бо�
     </fieldset>
 
     <div class="field">
-      <label for="f-task">Задача <span class="opt mono">необязательно</span></label>
+      <label for="f-task">Сообщение <span class="opt mono">необязательно</span></label>
       <textarea id="f-task" name="task" rows="4" maxlength="1000" aria-describedby="task-error task-count" placeholder="Коротко: что хотите получить и к какому сроку"></textarea>
       <p class="row-between">
         <span class="err" id="task-error"></span>
@@ -99,8 +100,17 @@ const budgets = ['до 50 тыс', '50–150 тыс', '150–500 тыс', 'бо�
   </form>
 
   <div class="success" data-form-success hidden tabindex="-1">
+    <svg class="success__check" data-success-check viewBox="0 0 64 64" width="64" height="64" aria-hidden="true">
+      <rect class="sc-box" x="2" y="2" width="60" height="60" rx="2" />
+      <path class="sc-tick" d="M18 33l9 9 19-20" />
+    </svg>
+    <div class="success__log mono" aria-hidden="true">
+      <p class="dim">$ send --request</p>
+      <p class="dim">→ проверяю данные… ok</p>
+      <p class="dim">→ доставляю заявку… ok</p>
+    </div>
     <p class="mono success__ok">✓ заявка принята</p>
-    <p>Отвечу в течение дня. Если срочно — напишите в <a href={site.telegramUrl} target="_blank" rel="noopener">Telegram</a>.</p>
+    <p class="success__text">Отвечу в течение дня. Если срочно — напишите в <a href={site.telegramUrl} target="_blank" rel="noopener">Telegram</a>.</p>
   </div>
   <p class="sr-only" data-form-status aria-live="polite"></p>
 </div>
@@ -258,9 +268,69 @@ const budgets = ['до 50 тыс', '50–150 тыс', '150–500 тыс', 'бо�
     border-radius: var(--radius);
     background: var(--surface);
   }
+  .success {
+    display: grid;
+    gap: var(--s3);
+    justify-items: start;
+  }
+  .success__check {
+    width: 64px;
+    height: 64px;
+  }
+  .sc-box {
+    fill: none;
+    stroke: var(--line);
+    stroke-width: 2;
+  }
+  .sc-tick {
+    fill: none;
+    stroke: var(--lime);
+    stroke-width: 5;
+    stroke-linecap: square;
+    stroke-dasharray: 44;
+    stroke-dashoffset: 0;
+  }
+  .success__log {
+    font-size: var(--fs-small);
+    line-height: 1.7;
+  }
   .success__ok {
     color: var(--lime);
     font-size: 1.25rem;
-    margin-bottom: var(--s2);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .success:not([hidden]) {
+      animation: success-in 0.4s ease-out both;
+    }
+    .success:not([hidden]) .sc-box {
+      stroke: var(--lime);
+      animation: box-in 0.5s ease-out both;
+    }
+    .success:not([hidden]) .sc-tick {
+      animation: tick 0.45s 0.35s ease-out both;
+    }
+    .success:not([hidden]) .success__log p,
+    .success:not([hidden]) .success__ok,
+    .success:not([hidden]) .success__text {
+      animation: line-in 0.3s ease-out both;
+    }
+    .success:not([hidden]) .success__log p:nth-child(1) { animation-delay: 0.5s; }
+    .success:not([hidden]) .success__log p:nth-child(2) { animation-delay: 0.75s; }
+    .success:not([hidden]) .success__log p:nth-child(3) { animation-delay: 1s; }
+    .success:not([hidden]) .success__ok { animation-delay: 1.25s; }
+    .success:not([hidden]) .success__text { animation-delay: 1.45s; }
+  }
+  @keyframes success-in {
+    from { opacity: 0; transform: scale(0.97); }
+  }
+  @keyframes box-in {
+    from { stroke-dasharray: 240; stroke-dashoffset: 240; }
+    to { stroke-dasharray: 240; stroke-dashoffset: 0; }
+  }
+  @keyframes tick {
+    from { stroke-dashoffset: 44; }
+  }
+  @keyframes line-in {
+    from { opacity: 0; transform: translateX(-6px); }
   }
 </style>
