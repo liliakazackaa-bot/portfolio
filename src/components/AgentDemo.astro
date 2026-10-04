@@ -1,0 +1,118 @@
+---
+import { site } from '../content/site';
+---
+<div class="demo" data-agent-demo role="img" aria-label="Пример диалога ИИ-агента с клиентом: запись на консультацию">
+  <div class="demo__bar mono" aria-hidden="true">
+    <span class="demo__dots"><i></i><i></i><i></i></span>
+    <span>agent.demo — пример сценария</span>
+  </div>
+  <div class="demo__log" aria-hidden="true">
+    {site.agentDemo.map((l) => (
+      <p class={`demo__line demo__line--${l.from}`} data-line data-from={l.from}>
+        {l.from !== 'system' && <span class="demo__who mono">{l.from === 'client' ? 'клиент' : 'агент'}</span>}
+        <span class="demo__text">{l.text}</span>
+      </p>
+    ))}
+    <p class="demo__typing mono" data-typing hidden>печатает<span>…</span></p>
+  </div>
+  <button class="demo__replay mono" type="button" data-replay tabindex="-1" aria-hidden="true">↻ повторить</button>
+</div>
+
+<style>
+  .demo {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg);
+    font-size: 0.9375rem;
+  }
+  .demo__bar {
+    display: flex;
+    align-items: center;
+    gap: var(--s3);
+    padding: var(--s2) var(--s3);
+    border-bottom: 1px solid var(--line);
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+  .demo__dots {
+    display: inline-flex;
+    gap: 5px;
+  }
+  .demo__dots i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--line);
+  }
+  .demo__log {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s3);
+    padding: var(--s4) var(--s4) 44px;
+  }
+  .demo__line {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    max-width: 88%;
+    padding: var(--s2) var(--s3);
+    border-radius: var(--radius);
+    line-height: 1.45;
+  }
+  .demo__who {
+    font-size: 0.6875rem;
+    color: var(--text-dim);
+  }
+  .demo__line--client {
+    align-self: flex-end;
+    background: var(--surface);
+  }
+  .demo__line--agent {
+    align-self: flex-start;
+    border: 1px solid color-mix(in oklch, var(--lime), transparent 70%);
+  }
+  .demo__line--system {
+    align-self: stretch;
+    max-width: none;
+    font-family: var(--font-mono);
+    font-size: var(--fs-small);
+    color: var(--lime);
+    padding-inline: 0;
+  }
+  .demo:global(.is-armed) .demo__line:not(:global(.is-shown)) {
+    opacity: 0;
+    visibility: hidden;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .demo__line {
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .demo:global(.is-armed) .demo__line:not(:global(.is-shown)) {
+      transform: translateY(6px);
+    }
+  }
+  .demo__typing {
+    position: absolute;
+    left: var(--s4);
+    bottom: var(--s3);
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+  .demo__replay {
+    position: absolute;
+    right: var(--s3);
+    bottom: var(--s3);
+    padding: 4px 8px;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    color: var(--text-dim);
+    font-size: 0.75rem;
+    cursor: pointer;
+  }
+  .demo__replay:hover {
+    color: var(--lime);
+    border-color: var(--lime);
+  }
+</style>

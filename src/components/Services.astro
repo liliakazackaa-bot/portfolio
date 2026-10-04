@@ -1,0 +1,69 @@
+---
+import { site } from '../content/site';
+import SectionLabel from './SectionLabel.astro';
+import ServiceCard from './ServiceCard.astro';
+import AgentDemo from './AgentDemo.astro';
+
+const byId = Object.fromEntries(site.services.map((s) => [s.id, s]));
+---
+<section class="section" id="services" aria-labelledby="services-title">
+  <div class="container">
+    <SectionLabel num="01" text="услуги" />
+    <h2 id="services-title" class="reveal">Три инструмента — одна задача: чтобы ваш бизнес работал без лишней рутины</h2>
+
+    <div class="bento">
+      <div class="bento__agent reveal">
+        <ServiceCard service={byId.agent} large>
+          <AgentDemo />
+        </ServiceCard>
+      </div>
+      <div class="bento__site reveal"><ServiceCard service={byId.site} /></div>
+      <div class="bento__app reveal"><ServiceCard service={byId.app} /></div>
+    </div>
+
+    <p class="unsure">
+      Не уверены, что вам нужно? Опишите задачу — подскажу формат бесплатно.
+      <a class="mono" href="#contact" data-service="unknown">написать →</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  h2 {
+    max-width: 22ch;
+    margin-bottom: var(--s7);
+  }
+  .bento {
+    display: grid;
+    gap: var(--s4);
+    grid-template-columns: 1fr;
+  }
+  .bento > div {
+    display: grid;
+  }
+  @media (min-width: 900px) {
+    .bento {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+      grid-template-areas:
+        'site agent'
+        'app agent';
+    }
+    .bento__agent {
+      grid-area: agent;
+    }
+    .bento__site {
+      grid-area: site;
+    }
+    .bento__app {
+      grid-area: app;
+    }
+  }
+  .unsure {
+    margin-top: var(--s6);
+    color: var(--text-dim);
+  }
+  .unsure a {
+    margin-left: var(--s2);
+    white-space: nowrap;
+  }
+</style>

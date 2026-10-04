@@ -1,0 +1,116 @@
+---
+import type { Service } from '../content/site';
+
+interface Props {
+  service: Service;
+  large?: boolean;
+}
+const { service, large = false } = Astro.props;
+---
+<article class:list={['card', 'svc', { 'svc--large': large }]} data-color={service.color} data-service-card={service.id} data-spotlight>
+  <div class="svc__body">
+    <div class="svc__main">
+      <p class="svc__label mono"><span class="svc__num">{service.num}</span> / {service.label}</p>
+      <p class="svc__pain">«{service.pain}»</p>
+      <h3>{service.title}</h3>
+      <p class="svc__text dim">{service.text}</p>
+    </div>
+    <slot />
+    <div class="svc__foot">
+      <p class="svc__meta mono"><span data-price>{service.price}</span> · {service.term}</p>
+      <a class="btn btn--primary svc__cta" href="#contact" data-service={service.id}>{service.cta}</a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .svc {
+    container-type: inline-size;
+    padding: clamp(var(--s5), 3vw, var(--s6));
+    overflow: hidden;
+  }
+  .svc::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(400px circle at var(--x, 50%) var(--y, 50%), color-mix(in oklch, var(--dir), transparent 88%), transparent 60%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .svc::after {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    pointer-events: none;
+    opacity: 0;
+    --c: var(--dir);
+    background:
+      linear-gradient(var(--c), var(--c)) top left / 14px 2px,
+      linear-gradient(var(--c), var(--c)) top left / 2px 14px,
+      linear-gradient(var(--c), var(--c)) top right / 14px 2px,
+      linear-gradient(var(--c), var(--c)) top right / 2px 14px,
+      linear-gradient(var(--c), var(--c)) bottom left / 14px 2px,
+      linear-gradient(var(--c), var(--c)) bottom left / 2px 14px,
+      linear-gradient(var(--c), var(--c)) bottom right / 14px 2px,
+      linear-gradient(var(--c), var(--c)) bottom right / 2px 14px;
+    background-repeat: no-repeat;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .svc::before,
+    .svc::after {
+      transition: opacity 0.25s;
+    }
+  }
+  .svc:hover {
+    border-color: color-mix(in oklch, var(--dir), transparent 50%);
+  }
+  .svc:hover::before,
+  .svc:hover::after {
+    opacity: 1;
+  }
+  .svc__body {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s5);
+    height: 100%;
+  }
+  .svc__main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s3);
+  }
+  .svc__label {
+    font-size: var(--fs-mono);
+    color: var(--dir);
+  }
+  .svc__pain {
+    font-family: var(--font-mono);
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+  }
+  .svc__foot {
+    margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s4);
+  }
+  .svc__meta {
+    font-size: var(--fs-mono);
+  }
+  .svc__meta span {
+    color: var(--dir);
+  }
+  .svc__cta {
+    white-space: normal;
+    text-align: center;
+  }
+  @container (width < 360px) {
+    .svc__cta {
+      width: 100%;
+    }
+  }
+</style>
