@@ -3,7 +3,7 @@ import { site } from '../content/site';
 
 const h1 = 'Собираю сайты, приложения и ИИ-агентов';
 ---
-<section class="hero" id="top" aria-labelledby="hero-title">
+<section class="hero" id="top" aria-labelledby="hero-title" tabindex="-1">
   <div class="hero__grid" aria-hidden="true"></div>
   <div class="container hero__inner">
     <p class="hero__status mono" data-hero-status>
@@ -27,6 +27,9 @@ const h1 = 'Собираю сайты, приложения и ИИ-агенто
 </section>
 
 <style>
+  .hero:focus {
+    outline: none;
+  }
   .hero {
     position: relative;
     padding-block: clamp(3rem, 10vw, 7rem) var(--section-gap);

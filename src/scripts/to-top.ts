@@ -12,7 +12,7 @@ export function initToTop(): void {
 
   btn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: reducedMotion() ? 'auto' : 'smooth' });
-    // Фокус — на начало страницы, чтобы клавиатурная навигация продолжилась сверху.
-    document.querySelector<HTMLElement>('.skip-link')?.focus({ preventScroll: true });
+    // Фокус — на первый экран, чтобы клавиатурная навигация продолжилась сверху.
+    hero.focus({ preventScroll: true });
   });
 }

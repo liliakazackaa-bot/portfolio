@@ -22,7 +22,7 @@ const budgets = ['до 50 тыс', '50–150 тыс', '150–500 тыс', 'бо�
     method="POST"
     action="https://api.web3forms.com/submit"
     data-key={site.web3formsKey}
-    data-demo={site.web3formsKey === 'YOUR_ACCESS_KEY' ? 'true' : 'false'}
+    data-demo="false"
   >
     <input type="hidden" name="access_key" value={site.web3formsKey} />
     <input type="hidden" name="subject" value="Заявка с сайта" />

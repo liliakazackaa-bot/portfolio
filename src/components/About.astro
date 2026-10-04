@@ -30,7 +30,8 @@ import photo from '../assets/photo.png';
       {site.stats.map((s) => (
         <li class="stat" data-counter>
           <p class="stat__num">
-            <span data-count-value data-count-to={s.value}>{s.value}</span><span class="stat__suffix">{s.suffix}</span>
+            {s.prefix && <span class="stat__suffix">{s.prefix}</span>}
+            {s.animate === false ? <span>{s.value}</span> : <span data-count-value data-count-to={s.value}>{s.value}</span>}<span class="stat__suffix">{s.suffix}</span>
           </p>
           <p class="stat__label mono dim">{s.label}</p>
         </li>

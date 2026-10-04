@@ -45,8 +45,11 @@ export interface ChatLine {
 
 export interface Stat {
   value: number;
+  prefix?: string;
   suffix: string;
   label: string;
+  /** false — показать как есть, без накрутки (например, 24/7). */
+  animate?: boolean;
 }
 
 export interface Site {
@@ -183,9 +186,9 @@ export const site: Site = {
   // Только факты из условий работы — никаких выдуманных метрик.
   stats: [
     { value: 3, suffix: '', label: 'направления: сайты, приложения и ИИ-агенты' },
-    { value: 2, suffix: ' нед.', label: 'до первой версии продукта' },
+    { value: 2, prefix: 'от ', suffix: ' нед.', label: 'до первой версии продукта' },
     { value: 30, suffix: ' дней', label: 'бесплатных правок после запуска' },
-    { value: 24, suffix: '/7', label: 'ИИ-агент отвечает вашим клиентам' },
+    { value: 24, suffix: '/7', label: 'ИИ-агент отвечает вашим клиентам', animate: false },
   ],
 
   stack: ['Astro', 'React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'PostgreSQL', 'LLM API', 'RAG', 'Telegram Bot API'],

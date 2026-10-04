@@ -44,7 +44,8 @@ export function initAgentDemo(root: HTMLElement): void {
         play();
       }
     },
-    { threshold: 0.35 },
+    // Старт, когда верх демо вошёл в верхние 70% экрана — работает и когда демо выше экрана (крупный шрифт).
+    { threshold: 0, rootMargin: '0px 0px -30% 0px' },
   );
   io.observe(root);
 }

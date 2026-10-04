@@ -62,6 +62,17 @@ test('single file: privacy link works inside the file', async ({ page }) => {
   await expect(link).toHaveAttribute('href', '#privacy');
   await link.click();
   await expect(page.locator('#privacy h2').first()).toBeVisible();
+  // Стили страницы политики перенесены: подзаголовки 20px, как на /privacy.
+  const sizes = await page.locator('#privacy h2:not(.privacy-title)').evaluateAll((els) =>
+    els.map((e) => getComputedStyle(e).fontSize),
+  );
+  expect(sizes.length).toBe(7);
+  expect(new Set(sizes)).toEqual(new Set(['20px']));
+});
+
+test('single file runs the form in demo mode', async ({ page }) => {
+  await page.goto(FILE);
+  await expect(page.locator('[data-form]')).toHaveAttribute('data-demo', 'true');
 });
 
 test.describe('without JavaScript (preview in messenger)', () => {
@@ -70,7 +81,7 @@ test.describe('without JavaScript (preview in messenger)', () => {
     await page.goto(FILE);
     await expect(page.locator('h1')).toBeVisible();
     await expect(page.locator('#services')).toContainText('ИИ-агенты, которые берут рутину на себя');
-    await expect(page.locator('[data-count-value]')).toHaveText(['3', '2', '30', '24']);
+    await expect(page.locator('[data-count-value]')).toHaveText(['3', '2', '30']);
     await expect(page.locator('#faq details')).toHaveCount(7);
   });
 });

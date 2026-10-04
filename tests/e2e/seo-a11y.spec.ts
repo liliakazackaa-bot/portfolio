@@ -64,8 +64,8 @@ test.describe('responsive', () => {
     });
   }
 
-  test('no horizontal scroll at 360px with 200% font size (Review Focus 5)', async ({ page }) => {
-    await page.setViewportSize({ width: 360, height: 800 });
+  for (const width of [320, 360]) test(`no horizontal scroll at ${width}px with 200% font size (Review Focus 5)`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 800 });
     await page.goto('/');
     await page.evaluate(() => (document.documentElement.style.fontSize = '200%'));
     const [sw, iw] = await page.evaluate(() => [document.documentElement.scrollWidth, window.innerWidth]);

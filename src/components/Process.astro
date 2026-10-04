@@ -36,6 +36,7 @@ import SectionLabel from './SectionLabel.astro';
   }
   .steps {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: 0;
     margin: 0 0 var(--s7);
     padding: 0;
@@ -69,6 +70,7 @@ import SectionLabel from './SectionLabel.astro';
   }
   .step h3 {
     font-size: 1.1875rem;
+    overflow-wrap: anywhere;
   }
   .step p.dim {
     font-size: 0.9375rem;

@@ -46,7 +46,7 @@ import SectionLabel from './SectionLabel.astro';
   }
   summary {
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     gap: var(--s4);
     align-items: baseline;
     padding: var(--s5) 0;
@@ -57,6 +57,9 @@ import SectionLabel from './SectionLabel.astro';
   }
   summary::-webkit-details-marker {
     display: none;
+  }
+  .faq__q {
+    overflow-wrap: anywhere;
   }
   summary:hover .faq__q {
     color: var(--lime);
