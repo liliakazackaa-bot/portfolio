@@ -32,7 +32,7 @@ test('privacy page', async ({ page }) => {
   await page.goto('/privacy');
   await expect(page.locator('h1')).toHaveText('Политика обработки персональных данных');
   await expect(page.locator('main')).toContainText('Web3Forms');
-  await expect(page.locator('main')).toContainText('hello@example.com');
+  await expect(page.locator('main')).toContainText('liliakazackaa@gmail.com');
 });
 
 test('404 page', async ({ page }) => {

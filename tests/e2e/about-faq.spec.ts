@@ -9,7 +9,7 @@ test('about: photo, stack and links', async ({ page }) => {
   await expect(about.locator('a', { hasText: 'github ↗' })).toHaveAttribute('href', 'https://github.com/username');
   await expect(about.locator('a', { hasText: 'telegram ↗' })).toHaveAttribute('href', 'https://t.me/LiliyaKazatskaya');
   await expect(about).not.toContainText('N лет');
-  await expect(about.locator('a', { hasText: 'email ↗' })).toHaveAttribute('href', 'mailto:hello@example.com');
+  await expect(about.locator('a', { hasText: 'email ↗' })).toHaveAttribute('href', 'mailto:liliakazackaa@gmail.com');
 });
 
 test('faq: seven closed items, open by click and keyboard', async ({ page }) => {

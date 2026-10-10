@@ -35,7 +35,7 @@ const kind = { site: 'сайт', app: 'приложение', agent: 'ИИ-аг�
   </div>
 
   <div class="proj__body">
-    <p class="proj__meta mono"><span class="proj__badge" data-badge>демо</span><span class="proj__kind">{kind}</span></p>
+    <p class="proj__meta mono"><span class="proj__badge" data-badge>{project.real ? 'проект' : 'демо'}</span><span class="proj__kind">{kind}</span></p>
     <h3>{project.title}</h3>
     <dl>
       <dt class="mono">задача</dt>
@@ -49,7 +49,7 @@ const kind = { site: 'сайт', app: 'приложение', agent: 'ИИ-аг�
       {project.stack.map((s) => <li class="tag">{s}</li>)}
     </ul>
     {project.demoUrl ? (
-      <a class="proj__link mono" href={project.demoUrl} target="_blank" rel="noopener" data-demo-link>открыть демо ↗</a>
+      <a class="proj__link mono" href={project.demoUrl} target="_blank" rel="noopener" data-demo-link>{project.real ? 'открыть сайт ↗' : 'открыть демо ↗'}</a>
     ) : (
       <span class="proj__link proj__link--soon mono" data-demo-link>демо скоро</span>
     )}
