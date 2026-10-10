@@ -10,8 +10,7 @@
 | Что | Где |
 |---|---|
 | Месяц, с которого вы свободны | `availableFrom` |
-| Почта, Telegram, GitHub | `email`, `telegram`, `telegramUrl`, `github` |
-| Сколько лет в разработке | `yearsOfExperience` |
+| Почта, GitHub | `email`, `github` |
 | Цены «от» | `price` в каждой из трёх услуг |
 | Ключ формы | `web3formsKey` (см. ниже) |
 | Адрес сайта | `siteUrl`, а также `site` в `astro.config.mjs` и строка `Sitemap` в `public/robots.txt` |

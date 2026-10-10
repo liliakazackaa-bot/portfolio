@@ -7,7 +7,8 @@ test('about: photo, stack and links', async ({ page }) => {
   expect(alt && alt.length > 0).toBeTruthy();
   await expect(about.locator('[data-stack] li')).toHaveCount(10);
   await expect(about.locator('a', { hasText: 'github ↗' })).toHaveAttribute('href', 'https://github.com/username');
-  await expect(about.locator('a', { hasText: 'telegram ↗' })).toHaveAttribute('href', 'https://t.me/username');
+  await expect(about.locator('a', { hasText: 'telegram ↗' })).toHaveAttribute('href', 'https://t.me/LiliyaKazatskaya');
+  await expect(about).not.toContainText('N лет');
   await expect(about.locator('a', { hasText: 'email ↗' })).toHaveAttribute('href', 'mailto:hello@example.com');
 });
 
@@ -21,7 +22,7 @@ test('faq: seven closed items, open by click and keyboard', async ({ page }) => 
   await items.nth(1).locator('summary').focus();
   await page.keyboard.press('Enter');
   await expect(items.nth(1)).toHaveAttribute('open', '');
-  await expect(page.locator('#faq a', { hasText: 'спросите в telegram ↗' })).toHaveAttribute('href', 'https://t.me/username');
+  await expect(page.locator('#faq a', { hasText: 'спросите в telegram ↗' })).toHaveAttribute('href', 'https://t.me/LiliyaKazatskaya');
 });
 
 test('footer: privacy link and closing line', async ({ page }) => {

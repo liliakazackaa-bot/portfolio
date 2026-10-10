@@ -60,7 +60,6 @@ export interface Site {
   telegram: string;
   telegramUrl: string;
   github: string;
-  yearsOfExperience: string;
   web3formsKey: string;
   siteUrl: string;
   services: Service[];
@@ -75,17 +74,15 @@ export interface Site {
 }
 
 const name = 'Лилия';
-const yearsOfExperience = 'N'; // ЗАГЛУШКА
 
 export const site: Site = {
   name,
   logo: 'лилия',
   availableFrom: 'ноябрь 2026', // ЗАГЛУШКА
   email: 'hello@example.com', // ЗАГЛУШКА
-  telegram: '@username', // ЗАГЛУШКА
-  telegramUrl: 'https://t.me/username', // ЗАГЛУШКА
+  telegram: '@LiliyaKazatskaya',
+  telegramUrl: 'https://t.me/LiliyaKazatskaya',
   github: 'https://github.com/username', // ЗАГЛУШКА
-  yearsOfExperience,
   web3formsKey: 'YOUR_ACCESS_KEY', // ЗАГЛУШКА
   siteUrl: 'https://example.com', // ЗАГЛУШКА
 
@@ -179,7 +176,7 @@ export const site: Site = {
   ],
 
   about: [
-    `Я ${name}, ${yearsOfExperience} лет делаю цифровые продукты. Начинала с сайтов, потом пришли приложения, а сейчас строю ИИ-агентов, которые снимают с людей рутину.`,
+    `Я ${name}, делаю цифровые продукты. Начинала с сайтов, потом пришли приложения, а сейчас строю ИИ-агентов, которые снимают с людей рутину.`,
     'Мне важно не просто сдать проект, а чтобы он работал на ваш бизнес: приводил клиентов, экономил время и не требовал постоянного присмотра.',
   ],
 
