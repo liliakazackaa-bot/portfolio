@@ -1,25 +1,22 @@
 import { test, expect } from '@playwright/test';
 
-test('real project first, demo projects labelled honestly', async ({ page }) => {
+test('two real projects first, agent demo labelled honestly', async ({ page }) => {
   await page.goto('/');
   const cards = page.locator('#work [data-project]');
   await expect(cards).toHaveCount(3);
   await expect(cards.locator('h3')).toHaveText([
-    'Сайт по ведической астрологии',
-    'Онлайн-запись для студии',
+    'Атма Джйотиш — сайт ведического астролога',
+    'Среда — концепция интерьера',
     'ИИ-агент для онлайн-школы',
   ]);
-  // Реальный проект: бейдж «в работе у клиентов» не нужен — просто «проект» и живая ссылка.
-  const real = cards.nth(0);
-  await expect(real.locator('[data-badge]')).toHaveText('проект');
-  await expect(real.locator('a[data-demo-link]')).toHaveText('открыть сайт ↗');
-  await expect(real.locator('a[data-demo-link]')).toHaveAttribute('href', 'http://vedastrologld.ru/');
-  // Демо остаются честно подписанными.
-  for (const i of [1, 2]) {
-    await expect(cards.nth(i).locator('[data-badge]')).toHaveText('демо');
-    await expect(cards.nth(i).locator('[data-demo-link]')).toHaveText('демо скоро');
+  const links = [['https://vedastrologld.ru/'], ['http://liliakdy.beget.tech/']];
+  for (const [i, [href]] of links.entries()) {
+    await expect(cards.nth(i).locator('[data-badge]')).toHaveText('проект');
+    await expect(cards.nth(i).locator('a[data-demo-link]')).toHaveText('открыть сайт ↗');
+    await expect(cards.nth(i).locator('a[data-demo-link]')).toHaveAttribute('href', href);
   }
-  await expect(page.locator('#work')).not.toContainText('// демо-проекты:');
+  await expect(cards.nth(2).locator('[data-badge]')).toHaveText('демо');
+  await expect(cards.nth(2).locator('[data-demo-link]')).toHaveText('демо скоро');
   await expect(page.locator('#work a.btn--primary[href="#contact"]')).toHaveText('[ обсудить проект ]');
 });
 
