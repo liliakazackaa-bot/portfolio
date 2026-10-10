@@ -9,7 +9,7 @@ import photo from '../assets/photo.png';
     <SectionLabel num="04" text="обо мне" />
     <div class="about">
       <figure class="about__photo reveal">
-        <Image src={photo} alt={`${site.name} — сайты, приложения и ИИ-агенты`} widths={[420, 840]} sizes="(min-width: 900px) 420px, 100vw" loading="lazy" quality={80} />
+        <Image src={photo} alt={`${site.name} за ноутбуком вместе с роботом-помощником: сайты, приложения, ИИ-агенты`} widths={[420, 840]} sizes="(min-width: 900px) 420px, 100vw" loading="lazy" quality={80} />
         <figcaption class="mono dim">photo.jpg</figcaption>
       </figure>
       <div class="about__text">
@@ -66,9 +66,9 @@ import photo from '../assets/photo.png';
   }
   .about__photo :global(img) {
     width: 100%;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 1169 / 1345;
     object-fit: cover;
-    object-position: 50% 35%;
+    object-position: 50% 30%;
     border: 1px solid var(--line);
   }
   .about__photo figcaption {
