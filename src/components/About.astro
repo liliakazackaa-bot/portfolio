@@ -19,7 +19,7 @@ import photo from '../assets/photo.png';
           {site.stack.map((s) => <li class="tag">{s}</li>)}
         </ul>
         <p class="about__links mono reveal">
-          <a href={site.github} target="_blank" rel="noopener">github ↗</a>
+          {site.github && <a href={site.github} target="_blank" rel="noopener">github ↗</a>}
           <a href={site.telegramUrl} target="_blank" rel="noopener">telegram ↗</a>
           <a href={`mailto:${site.email}`}>email ↗</a>
         </p>

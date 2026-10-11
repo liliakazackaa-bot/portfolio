@@ -6,7 +6,8 @@ test('about: photo, stack and links', async ({ page }) => {
   const alt = await about.locator('img').getAttribute('alt');
   expect(alt && alt.length > 0).toBeTruthy();
   await expect(about.locator('[data-stack] li')).toHaveCount(10);
-  await expect(about.locator('a', { hasText: 'github ↗' })).toHaveAttribute('href', 'https://github.com/username');
+  await expect(about.locator('a', { hasText: 'github' })).toHaveCount(0);
+  await expect(page.locator('a[href*="github.com/username"]')).toHaveCount(0);
   await expect(about.locator('a', { hasText: 'telegram ↗' })).toHaveAttribute('href', 'https://t.me/LiliyaKazatskaya');
   await expect(about).not.toContainText('N лет');
   await expect(about.locator('a', { hasText: 'email ↗' })).toHaveAttribute('href', 'mailto:liliakazackaa@gmail.com');

@@ -61,6 +61,7 @@ export interface Site {
   email: string;
   telegram: string;
   telegramUrl: string;
+  /** Ссылка на GitHub. Пустая строка — ссылка на сайте не показывается. */
   github: string;
   web3formsKey: string;
   siteUrl: string;
@@ -84,7 +85,7 @@ export const site: Site = {
   email: 'liliakazackaa@gmail.com',
   telegram: '@LiliyaKazatskaya',
   telegramUrl: 'https://t.me/LiliyaKazatskaya',
-  github: 'https://github.com/username', // ЗАГЛУШКА
+  github: '', // пусто — ссылка скрыта; можно вставить адрес профиля
   web3formsKey: 'YOUR_ACCESS_KEY', // ЗАГЛУШКА
   siteUrl: 'https://liliya-kazatskaya.netlify.app',
 

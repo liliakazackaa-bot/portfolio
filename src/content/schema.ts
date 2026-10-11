@@ -13,7 +13,7 @@ export function buildJsonLd() {
         jobTitle: 'Разработчик сайтов, приложений и ИИ-агентов',
         url: site.siteUrl,
         email: `mailto:${site.email}`,
-        sameAs: [site.github, site.telegramUrl],
+        sameAs: [site.github, site.telegramUrl].filter(Boolean),
       },
       {
         '@type': 'ProfessionalService',

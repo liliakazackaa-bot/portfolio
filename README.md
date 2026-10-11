@@ -9,7 +9,7 @@
 
 | Что | Где |
 |---|---|
-| GitHub | `github` |
+| GitHub (пусто — ссылка скрыта) | `github` |
 | Ключ формы | `web3formsKey` (см. ниже) |
 | Адрес сайта (если сменится) | `siteUrl`, а также `site` в `astro.config.mjs` и строка `Sitemap` в `public/robots.txt` |
 
