@@ -9,9 +9,7 @@
 
 | Что | Где |
 |---|---|
-| Месяц, с которого вы свободны | `availableFrom` |
 | GitHub | `github` |
-| Цены «от» | `price` в каждой из трёх услуг |
 | Ключ формы | `web3formsKey` (см. ниже) |
 | Адрес сайта (если сменится) | `siteUrl`, а также `site` в `astro.config.mjs` и строка `Sitemap` в `public/robots.txt` |
 

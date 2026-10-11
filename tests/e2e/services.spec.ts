@@ -14,7 +14,8 @@ test('three service cards with CTAs and prices', async ({ page }) => {
     await expect(cta).toHaveAttribute('href', '#contact');
   }
   await expect(page.locator('#services a[data-service="unknown"]')).toHaveText('написать →');
-  await expect(page.locator('#services [data-price]')).toHaveText(['от XX 000 ₽', 'от XX 000 ₽', 'от XX 000 ₽']);
+  await expect(page.locator('#services [data-price]')).toHaveText(['стоимость — после короткого брифа', 'стоимость — после короткого брифа', 'стоимость — после короткого брифа']);
+  await expect(page.locator('body')).not.toContainText('XX 000');
 });
 
 test('bento layout: agents card is tallest on desktop, first on mobile', async ({ page, isMobile }) => {

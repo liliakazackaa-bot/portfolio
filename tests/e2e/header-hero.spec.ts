@@ -12,7 +12,7 @@ test.describe('desktop', () => {
     await expect(page.locator('h1')).toHaveCount(1);
     await expect(page.locator('h1')).toHaveAttribute('aria-label', H1);
     await expect(page.locator('h1 .mark')).toContainText('ИИ-агентов');
-    await expect(page.locator('[data-hero-status]')).toContainText('available: ноябрь 2026');
+    await expect(page.locator('[data-hero-status]')).toContainText('available: принимаю заявки');
     await expect(page.locator('[data-header] a.btn--primary')).toHaveAttribute('href', '#contact');
   });
 
