@@ -1,0 +1,15 @@
+# Настройки сборки для Netlify — подхватываются автоматически при подключении репозитория.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  # Браузеры для тестов на Netlify не нужны.
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1"
+
+# Кэширование статики, которую Astro кладёт в /_astro/ с хэшем в имени.
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
