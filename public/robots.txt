@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://liliya-kazatskaya.netlify.app/sitemap-index.xml
+Sitemap: http://portfolio.liliakdy.beget.tech/sitemap-index.xml

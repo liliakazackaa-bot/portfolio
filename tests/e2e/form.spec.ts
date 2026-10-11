@@ -107,7 +107,7 @@ test('honeypot is present and hidden; no-JS fallback attributes set', async ({ p
   await expect(form).toHaveAttribute('action', 'https://api.web3forms.com/submit');
   await expect(form.locator('input[name="botcheck"]')).toBeHidden();
   await expect(form.locator('input[name="access_key"]')).toHaveValue('YOUR_ACCESS_KEY');
-  await expect(form.locator('input[name="redirect"]')).toHaveValue('https://liliya-kazatskaya.netlify.app/#contact');
+  await expect(form.locator('input[name="redirect"]')).toHaveValue('http://portfolio.liliakdy.beget.tech/#contact');
 });
 
 test('contact error appears on blur', async ({ page }) => {
