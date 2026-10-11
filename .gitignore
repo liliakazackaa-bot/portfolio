@@ -9,3 +9,4 @@ playwright-report/
 .shot2.mjs
 .shots.sh
 dist-single/
+*.zip
