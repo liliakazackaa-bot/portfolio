@@ -13,7 +13,7 @@
 | GitHub | `github` |
 | Цены «от» | `price` в каждой из трёх услуг |
 | Ключ формы | `web3formsKey` (см. ниже) |
-| Адрес сайта | `siteUrl`, а также `site` в `astro.config.mjs` и строка `Sitemap` в `public/robots.txt` |
+| Адрес сайта (если сменится) | `siteUrl`, а также `site` в `astro.config.mjs` и строка `Sitemap` в `public/robots.txt` |
 
 Фото — `src/assets/photo.png` (замените файлом с тем же именем). Демо-проектам можно добавить `demoUrl` — метка «демо скоро» сама превратится в ссылку.
 

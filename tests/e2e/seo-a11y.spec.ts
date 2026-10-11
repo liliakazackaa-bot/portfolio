@@ -9,9 +9,9 @@ test('meta, open graph, canonical and JSON-LD', async ({ page }) => {
     'Разрабатываю сайты, веб-приложения и ИИ-агентов под ключ: от идеи до запуска и поддержки. Фиксированная смета, работа по договору.',
   );
   await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', /Лилия/);
-  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', 'https://example.com/og.png');
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', 'https://liliya-kazatskaya.netlify.app/og.png');
   await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://example.com/');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://liliya-kazatskaya.netlify.app/');
   const raw = await page.locator('script[type="application/ld+json"]').textContent();
   const graph = JSON.parse(raw!)['@graph'] as Array<Record<string, any>>;
   const person = graph.find((n) => n['@type'] === 'Person')!;
@@ -23,7 +23,7 @@ test('meta, open graph, canonical and JSON-LD', async ({ page }) => {
 test('robots and sitemap are published', async ({ request }) => {
   const robots = await request.get('/robots.txt');
   expect(robots.ok()).toBeTruthy();
-  expect(await robots.text()).toContain('Sitemap: https://example.com/sitemap-index.xml');
+  expect(await robots.text()).toContain('Sitemap: https://liliya-kazatskaya.netlify.app/sitemap-index.xml');
   expect((await request.get('/sitemap-index.xml')).ok()).toBeTruthy();
   expect((await request.get('/og.png')).ok()).toBeTruthy();
 });

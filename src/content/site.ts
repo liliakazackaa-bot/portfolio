@@ -86,7 +86,7 @@ export const site: Site = {
   telegramUrl: 'https://t.me/LiliyaKazatskaya',
   github: 'https://github.com/username', // ЗАГЛУШКА
   web3formsKey: 'YOUR_ACCESS_KEY', // ЗАГЛУШКА
-  siteUrl: 'https://example.com', // ЗАГЛУШКА
+  siteUrl: 'https://liliya-kazatskaya.netlify.app',
 
   services: [
     {
