@@ -71,3 +71,30 @@ export function buildPayload(v: FormValues, accessKey: string): Record<string, s
   if (v.budget) payload.budget = v.budget;
   return payload;
 }
+
+const PLACE_LABELS: Record<string, string> = {
+  telegram: 'Telegram',
+  site: 'Сайт',
+  crm: 'CRM',
+  unknown: 'Пока не знаю',
+};
+
+/** Текст заявки для отправки в Telegram — только заполненные поля. */
+export function buildTelegramText(v: FormValues): string {
+  const service = v.service ?? 'unknown';
+  const lines = [
+    'Здравствуйте, Лилия! Заявка с сайта.',
+    `Имя: ${v.name.trim()}`,
+    `Контакт: ${v.contact.trim()}`,
+    `Что нужно: ${SERVICE_LABELS[service] ?? 'Не знаю'}`,
+  ];
+  if (service === 'agent' && v.agentPlace) lines.push(`Где будет работать агент: ${PLACE_LABELS[v.agentPlace] ?? v.agentPlace}`);
+  if (v.budget) lines.push(`Бюджет: ${v.budget}`);
+  if (v.task.trim()) lines.push(`Задача: ${v.task.trim()}`);
+  return lines.join('\n');
+}
+
+/** Ссылка на чат в Telegram с готовым текстом сообщения. */
+export function telegramLink(chatUrl: string, text: string): string {
+  return `${chatUrl}?text=${encodeURIComponent(text)}`;
+}

@@ -14,6 +14,8 @@ const places = [
   { value: 'unknown', label: 'Пока не знаю' },
 ];
 const budgets = ['до 50 тыс', '50–150 тыс', '150–500 тыс', 'больше', 'Пока не знаю'];
+// Пока нет ключа Web3Forms, заявки уходят в Telegram (открывается чат с готовым текстом).
+const channel = site.web3formsKey === 'YOUR_ACCESS_KEY' ? 'telegram' : 'email';
 ---
 <div class="form-wrap">
   <form
@@ -23,6 +25,8 @@ const budgets = ['до 50 тыс', '50–150 тыс', '150–500 тыс', 'бо�
     action="https://api.web3forms.com/submit"
     data-key={site.web3formsKey}
     data-demo="false"
+    data-channel={channel}
+    data-telegram={site.telegramUrl}
   >
     <input type="hidden" name="access_key" value={site.web3formsKey} />
     <input type="hidden" name="subject" value="Заявка с сайта" />
@@ -90,12 +94,13 @@ const budgets = ['до 50 тыс', '50–150 тыс', '150–500 тыс', 'бо�
     <div class="field">
       <label class="consent">
         <input type="checkbox" name="consent" value="yes" required aria-describedby="consent-error" />
-        <span>Даю согласие на <a href="/privacy" target="_blank">обработку персональных данных</a></span>
+        <span>Даю согласие на <a href="/privacy" target="_blank">обработку персональных данных</a>, в том числе их передачу через Telegram</span>
       </label>
       <p class="err" id="consent-error"></p>
     </div>
 
-    <button class="btn btn--primary submit" type="submit" data-submit>[ получить план и оценку ]</button>
+    <button class="btn btn--primary submit" type="submit" data-submit>{channel === 'telegram' ? '[ отправить в telegram ]' : '[ получить план и оценку ]'}</button>
+    {channel === 'telegram' && <p class="hint mono dim">Откроется чат со мной в Telegram с готовым текстом заявки — останется нажать «Отправить».</p>}
     <p class="err" data-form-error role="alert"></p>
   </form>
 
@@ -111,6 +116,11 @@ const budgets = ['до 50 тыс', '50–150 тыс', '150–500 тыс', 'бо�
     </div>
     <p class="mono success__ok">✓ заявка принята</p>
     <p class="success__text">Отвечу в течение дня. Если срочно — напишите в <a href={site.telegramUrl} target="_blank" rel="noopener">Telegram</a>.</p>
+  </div>
+  <div class="success" data-form-telegram hidden tabindex="-1">
+    <p class="mono success__ok">✓ заявка готова</p>
+    <p class="success__text">Открылся чат со мной в Telegram с текстом заявки — нажмите «Отправить» в Telegram, и я отвечу в течение дня.</p>
+    <p class="success__text dim">Чат не открылся? <a data-telegram-link href={site.telegramUrl} target="_blank" rel="noopener">Открыть Telegram ↗</a> — текст заявки уже скопирован, его можно вставить.</p>
   </div>
   <p class="sr-only" data-form-status aria-live="polite"></p>
 </div>
@@ -249,6 +259,10 @@ const budgets = ['до 50 тыс', '50–150 тыс', '150–500 тыс', 'бо�
     margin-top: 2px;
     accent-color: var(--lime);
     flex: none;
+  }
+  .hint {
+    font-size: var(--fs-small);
+    margin-top: calc(-1 * var(--s3));
   }
   .submit {
     align-self: flex-start;

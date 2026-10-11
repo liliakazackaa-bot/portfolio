@@ -77,3 +77,21 @@ test('buildPayload: keeps agentPlace for agent and trims values', () => {
   assert.equal(p.contact, '@anna_k');
   assert.equal(p.subject, 'Заявка с сайта: ИИ-агент');
 });
+
+import { buildTelegramText, telegramLink } from '../../src/scripts/form-validate.ts';
+
+test('buildTelegramText: readable request with only filled fields', () => {
+  const t = buildTelegramText({ ...base, name: ' Анна ', contact: '@anna_k', service: 'agent', agentPlace: 'crm', task: ' Нужна запись ', budget: '50–150 тыс' });
+  assert.equal(
+    t,
+    ['Здравствуйте, Лилия! Заявка с сайта.', 'Имя: Анна', 'Контакт: @anna_k', 'Что нужно: ИИ-агент', 'Где будет работать агент: CRM', 'Бюджет: 50–150 тыс', 'Задача: Нужна запись'].join('\n'),
+  );
+  const short = buildTelegramText({ ...base, service: 'site', agentPlace: 'crm' });
+  assert.equal(short.includes('Где будет работать агент'), false);
+  assert.equal(short.includes('Бюджет'), false);
+  assert.equal(short.includes('Задача'), false);
+});
+
+test('telegramLink: t.me link with encoded text', () => {
+  assert.equal(telegramLink('https://t.me/LiliyaKazatskaya', 'Имя: А & Б'), 'https://t.me/LiliyaKazatskaya?text=' + encodeURIComponent('Имя: А & Б'));
+});

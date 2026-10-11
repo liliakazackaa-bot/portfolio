@@ -31,7 +31,7 @@ test('robots and sitemap are published', async ({ request }) => {
 test('privacy page', async ({ page }) => {
   await page.goto('/privacy');
   await expect(page.locator('h1')).toHaveText('Политика обработки персональных данных');
-  await expect(page.locator('main')).toContainText('Web3Forms');
+  await expect(page.locator('main')).toContainText('Telegram');
   await expect(page.locator('main')).toContainText('liliakazackaa@gmail.com');
 });
 

@@ -20,7 +20,11 @@ function track(page: Page) {
 test.beforeEach(async ({ page }) => {
   await page.goto('/#contact');
   // Ключ на сайте — заглушка (демо-режим). Здесь проверяем настоящую отправку.
-  await page.evaluate(() => (document.querySelector<HTMLFormElement>('[data-form]')!.dataset.demo = 'false'));
+  await page.evaluate(() => {
+    const f = document.querySelector<HTMLFormElement>('[data-form]')!;
+    f.dataset.demo = 'false';
+    f.dataset.channel = 'email';
+  });
 });
 
 test('empty submit shows four errors, focuses name, sends nothing', async ({ page }) => {

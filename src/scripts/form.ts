@@ -1,5 +1,5 @@
 // Форма заявки: предвыбор услуги из CTA, валидация, отправка в Web3Forms, состояния.
-import { validateForm, validateName, validateContact, validateTask, buildPayload, type FormValues } from './form-validate';
+import { validateForm, validateName, validateContact, validateTask, buildPayload, buildTelegramText, telegramLink, type FormValues } from './form-validate';
 
 type Field = 'name' | 'contact' | 'service' | 'task' | 'consent';
 const FAIL_TEXT = '× не удалось отправить. попробуйте ещё раз или напишите на email';
@@ -120,6 +120,24 @@ export function initForm(form: HTMLFormElement, endpoint = 'https://api.web3form
     const first = order.find((f) => errors[f]);
     if (first) {
       target(first)?.focus();
+      return;
+    }
+
+    // Telegram: открываем чат с готовым текстом синхронно, пока действует клик пользователя.
+    if (form.dataset.demo !== 'true' && form.dataset.channel === 'telegram') {
+      const text = buildTelegramText(v);
+      const url = telegramLink(form.dataset.telegram ?? 'https://t.me/', text);
+      window.open(url, '_blank', 'noopener');
+      navigator.clipboard?.writeText(text).catch(() => {});
+      const tg = wrap.querySelector<HTMLElement>('[data-form-telegram]');
+      const link = tg?.querySelector<HTMLAnchorElement>('[data-telegram-link]');
+      if (link) link.href = url;
+      form.hidden = true;
+      if (tg) {
+        tg.hidden = false;
+        tg.focus();
+      }
+      if (status) status.textContent = 'Заявка готова. Отправьте её в открывшемся чате Telegram.';
       return;
     }
 
