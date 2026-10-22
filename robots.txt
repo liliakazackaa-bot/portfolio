@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: http://portfolio.liliakdy.beget.tech/sitemap-index.xml

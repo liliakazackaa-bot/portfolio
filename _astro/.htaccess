@@ -1,0 +1,4 @@
+# Файлы с хешем в имени не меняются — кешируем надолго
+<IfModule mod_headers.c>
+  Header set Cache-Control "public, max-age=31536000, immutable"
+</IfModule>

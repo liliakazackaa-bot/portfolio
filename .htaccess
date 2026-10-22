@@ -1,0 +1,11 @@
+# Beget (Apache): сжатие и страница 404
+AddDefaultCharset UTF-8
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain application/javascript application/json image/svg+xml application/xml
+</IfModule>
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType image/png "access plus 7 days"
+</IfModule>
+ErrorDocument 404 /404.html
