@@ -6,17 +6,17 @@ test('meta, open graph, canonical and JSON-LD', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     'content',
-    'Разрабатываю сайты, веб-приложения и ИИ-агентов под ключ: от идеи до запуска и поддержки. Фиксированная смета, работа по договору.',
+    'Разрабатываем сайты, веб-приложения и ИИ-агентов под ключ: от идеи до запуска и поддержки. Фиксированная смета, работа по договору.',
   );
-  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', /Лилия/);
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', /Цифровая мастерская/);
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', 'http://portfolio.liliakdy.beget.tech/og.png');
   await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'http://portfolio.liliakdy.beget.tech/');
   const raw = await page.locator('script[type="application/ld+json"]').textContent();
-  const graph = JSON.parse(raw!)['@graph'] as Array<Record<string, any>>;
-  const person = graph.find((n) => n['@type'] === 'Person')!;
-  expect(person.name).toBe('Лилия');
-  const service = graph.find((n) => n['@type'] === 'ProfessionalService')!;
+  const service = JSON.parse(raw!) as Record<string, any>;
+  expect(service['@type']).toBe('ProfessionalService');
+  expect(service.name).toBe('Цифровая мастерская');
+  expect(raw).not.toContain('Person');
   expect(service.hasOfferCatalog.itemListElement).toHaveLength(3);
 });
 
@@ -42,7 +42,7 @@ test('404 page', async ({ page }) => {
   await expect(page.locator('main a[href="/"]')).toHaveText('[ вернуться на главную ]');
 });
 
-for (const path of ['/', '/privacy', '/404']) {
+for (const path of ['/', '/privacy', '/consent', '/404']) {
   test(`axe: no serious or critical violations on ${path}`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto(path);

@@ -1,5 +1,5 @@
 // Собирает dist-single/index.html — один автономный файл для отправки в мессенджер.
-// Всё встраивается внутрь: CSS, JS, шрифты, фото, favicon и страница политики (как раздел #privacy).
+// Всё встраивается внутрь: CSS, JS, шрифты, фото, favicon и юридические страницы (разделы #privacy и #consent).
 // Запуск после `astro build`: node scripts/build-single.mjs
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, extname } from 'node:path';
@@ -60,30 +60,31 @@ function inlineAssets(html) {
   return html;
 }
 
-// Страница политики → скрытый раздел #privacy (открывается по ссылке через :target).
-function privacySection() {
-  const raw = readFileSync(join(DIST, 'privacy', 'index.html'), 'utf8');
+// Юридические страницы → скрытые разделы #privacy и #consent (открываются по ссылке через :target).
+function docSection(slug, label) {
+  const raw = readFileSync(join(DIST, slug, 'index.html'), 'utf8');
   const styles = [...raw.matchAll(/<link rel="stylesheet" href="([^"]+)"[^>]*>/g)].map((m) => m[1]);
   const head = raw.match(/<head>([\s\S]*?)<\/head>/)[1];
   const index = readFileSync(join(DIST, 'index.html'), 'utf8');
-  // Свои <style> страницы политики (стили с data-astro-cid), которых нет на главной.
+  // Свои <style> страницы (стили с data-astro-cid), которых нет на главной.
   const inlineStyles = [...head.matchAll(/<style>[\s\S]*?<\/style>/g)].map((m) => m[0]).filter((st) => !index.includes(st));
   const main = raw.match(/<main id="main">([\s\S]*?)<\/main>/)[1];
   const body = main.replace(/<h1/g, '<h2 class="privacy-title"').replace(/<\/h1>/g, '</h2>').replace(/href="\/"/g, 'href="#top"');
-  return { styles, inlineStyles, html: `<section id="privacy" class="privacy-inline" aria-label="Политика обработки персональных данных">${body}</section>` };
+  return { styles, inlineStyles, html: `<section id="${slug}" class="privacy-inline" aria-label="${label}">${body}</section>` };
 }
 
 let html = readFileSync(join(DIST, 'index.html'), 'utf8');
-const privacy = privacySection();
-const extraStyles = privacy.styles
+const docs = [docSection('privacy', 'Политика обработки персональных данных'), docSection('consent', 'Согласие на обработку персональных данных')];
+const extraStyles = [...new Set(docs.flatMap((d) => d.styles))]
   .filter((href) => !html.includes(`href="${href}"`))
   .map((href) => `<link rel="stylesheet" href="${href}">`)
-  .join('') + privacy.inlineStyles.join('');
+  .join('') + [...new Set(docs.flatMap((d) => d.inlineStyles))].join('');
 
 html = html
   .replace('</head>', `${extraStyles}<style>.privacy-inline{display:none;border-top:1px solid var(--line);margin-top:var(--section-gap)}.privacy-inline:target{display:block}.privacy-title{font-size:var(--fs-h2);line-height:1.1}</style></head>`)
-  .replace('</main>', `${privacy.html}</main>`)
+  .replace('</main>', `${docs.map((d) => d.html).join('')}</main>`)
   .replace(/href="\/privacy"( target="_blank")?/g, 'href="#privacy"')
+  .replace(/href="\/consent"( target="_blank")?/g, 'href="#consent"')
   .replace(/href="\/"/g, 'href="#top"');
 
 // Файл для мессенджера: форма только показывает анимацию успеха, ничего не отправляет.

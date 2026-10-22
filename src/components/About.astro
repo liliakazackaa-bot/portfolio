@@ -1,19 +1,18 @@
 ---
-import { Image } from 'astro:assets';
 import { site } from '../content/site';
 import SectionLabel from './SectionLabel.astro';
-import photo from '../assets/photo.png';
 ---
 <section class="section" id="about" aria-labelledby="about-title">
   <div class="container">
-    <SectionLabel num="04" text="обо мне" />
+    <SectionLabel num="04" text="о мастерской" />
     <div class="about">
-      <figure class="about__photo reveal">
-        <Image src={photo} alt={`${site.name} за ноутбуком вместе с роботом-помощником: сайты, приложения, ИИ-агенты`} widths={[420, 840]} sizes="(min-width: 900px) 420px, 100vw" loading="lazy" quality={80} />
-        <figcaption class="mono dim">photo.jpg</figcaption>
-      </figure>
+      <div class="about__mark reveal" aria-hidden="true">
+        <span class="about__sign">ЦМ</span>
+        <span class="mono dim">~/цифровая-мастерская</span>
+        <span class="mono">сайты · приложения · ИИ-агенты</span>
+      </div>
       <div class="about__text">
-        <h2 id="about-title" class="reveal">Обо мне</h2>
+        <h2 id="about-title" class="reveal">О мастерской</h2>
         {site.about.map((p) => <p class="reveal">{p}</p>)}
         <ul class="about__stack reveal" data-stack aria-label="Стек">
           {site.stack.map((s) => <li class="tag">{s}</li>)}
@@ -51,11 +50,19 @@ import photo from '../assets/photo.png';
       align-items: start;
     }
   }
-  .about__photo {
+  .about__mark {
     position: relative;
-    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: var(--s2);
     max-width: 420px;
-    padding: 10px;
+    aspect-ratio: 1 / 1;
+    padding: min(var(--s6), 8vw);
+    border: 1px solid var(--line);
+    font-size: var(--fs-small);
+    min-width: 0;
+    overflow-wrap: anywhere;
     --c: var(--lime);
     background:
       linear-gradient(var(--c), var(--c)) top left / 18px 2px,
@@ -64,16 +71,16 @@ import photo from '../assets/photo.png';
       linear-gradient(var(--c), var(--c)) bottom right / 2px 18px;
     background-repeat: no-repeat;
   }
-  .about__photo :global(img) {
-    width: 100%;
-    aspect-ratio: 1169 / 1345;
-    object-fit: cover;
-    object-position: 50% 30%;
-    border: 1px solid var(--line);
+  .about__sign {
+    margin-bottom: auto;
+    font-size: min(clamp(4rem, 14vw, 7.5rem), 24vw);
+    font-weight: 800;
+    line-height: 1;
+    color: var(--lime);
   }
-  .about__photo figcaption {
-    margin-top: var(--s2);
-    font-size: 0.75rem;
+  /* «О мастерской» — длинное слово: на узком экране с крупным шрифтом уменьшаем заголовок. */
+  #about-title {
+    font-size: min(var(--fs-h2), 11vw);
   }
   .about__text {
     display: flex;

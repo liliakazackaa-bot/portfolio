@@ -1,7 +1,7 @@
 ---
 import { site } from '../content/site';
 
-const h1 = 'Собираю сайты, приложения и ИИ-агентов';
+const h1 = 'Цифровая мастерская — сайты, приложения и ИИ-агенты';
 ---
 <section class="hero" id="top" aria-labelledby="hero-title" tabindex="-1">
   <div class="hero__grid" aria-hidden="true"></div>
@@ -11,18 +11,18 @@ const h1 = 'Собираю сайты, приложения и ИИ-агенто
       <span><span class="dot" aria-hidden="true"></span>→ available: {site.availableFrom}</span>
     </p>
 
-    <h1 class="hero__title" id="hero-title" aria-label={h1} data-typewriter><span aria-hidden="true" data-type-text>Собираю сайты, приложения и <span class="mark">ИИ-агентов</span></span><span class="cursor" aria-hidden="true">▊</span></h1>
+    <h1 class="hero__title" id="hero-title" aria-label={h1} data-typewriter><span aria-hidden="true" data-type-text>Цифровая <span class="mark">мастерская</span></span><span class="cursor" aria-hidden="true">▊</span></h1>
 
-    <p class="hero__for mono dim">для экспертов и бизнеса_</p>
+    <p class="hero__for mono dim">сайты, приложения и ИИ-агенты для экспертов и бизнеса_</p>
     <p class="hero__sub">
-      Беру задачу целиком: от идеи и дизайна до запуска и поддержки. Первая версия — от 2 недель.
+      Берём задачу целиком: от идеи и дизайна до запуска и поддержки. Первая версия — от 2 недель.
     </p>
 
     <div class="hero__actions">
       <a class="btn btn--primary" href="#contact">[ обсудить проект ]</a>
       <a class="btn btn--secondary" href="#work">смотреть проекты ↓</a>
     </div>
-    <p class="hero__trust mono dim">отвечаю в течение дня · работаю по договору · код и доступы — ваши</p>
+    <p class="hero__trust mono dim">отвечаем в течение дня · работаем по договору · код и доступы — ваши</p>
   </div>
 </section>
 
@@ -76,7 +76,8 @@ const h1 = 'Собираю сайты, приложения и ИИ-агенто
     }
   }
   .hero__title {
-    font-size: var(--fs-h1);
+    /* «мастерская» — одно длинное слово: ограничиваем по ширине экрана, чтобы влезало и при крупном шрифте. */
+    font-size: min(var(--fs-h1), 13vw);
     font-weight: 800;
     line-height: 1.02;
     letter-spacing: -0.02em;

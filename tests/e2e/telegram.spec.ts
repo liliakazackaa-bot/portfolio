@@ -37,5 +37,6 @@ test('site form sends the request to Telegram with a prefilled message', async (
 test('privacy page describes Telegram delivery', async ({ page }) => {
   await page.goto('/privacy');
   await expect(page.locator('main')).toContainText('Telegram');
-  await expect(page.locator('main')).toContainText('трансграничн');
+  await expect(page.locator('main')).toContainText('за пределами Российской Федерации');
+  await expect(page.locator('main')).toContainText('Чугунов Сергей Владимирович');
 });

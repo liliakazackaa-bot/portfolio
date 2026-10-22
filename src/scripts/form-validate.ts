@@ -83,7 +83,7 @@ const PLACE_LABELS: Record<string, string> = {
 export function buildTelegramText(v: FormValues): string {
   const service = v.service ?? 'unknown';
   const lines = [
-    'Здравствуйте, Лилия! Заявка с сайта.',
+    'Здравствуйте! Заявка с сайта.',
     `Имя: ${v.name.trim()}`,
     `Контакт: ${v.contact.trim()}`,
     `Что нужно: ${SERVICE_LABELS[service] ?? 'Не знаю'}`,

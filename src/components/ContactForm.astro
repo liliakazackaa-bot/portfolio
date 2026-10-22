@@ -94,13 +94,13 @@ const channel = site.web3formsKey === 'YOUR_ACCESS_KEY' ? 'telegram' : 'email';
     <div class="field">
       <label class="consent">
         <input type="checkbox" name="consent" value="yes" required aria-describedby="consent-error" />
-        <span>Даю согласие на <a href="/privacy" target="_blank">обработку персональных данных</a>, в том числе их передачу через Telegram</span>
+        <span>Даю <a href="/consent" target="_blank">согласие на обработку персональных данных</a>. Заявка отправляется через Telegram — возможна обработка за пределами России. <a href="/privacy" target="_blank">Политика обработки данных</a></span>
       </label>
       <p class="err" id="consent-error"></p>
     </div>
 
     <button class="btn btn--primary submit" type="submit" data-submit>{channel === 'telegram' ? '[ отправить в telegram ]' : '[ получить план и оценку ]'}</button>
-    {channel === 'telegram' && <p class="hint mono dim">Откроется чат со мной в Telegram с готовым текстом заявки — останется нажать «Отправить».</p>}
+    {channel === 'telegram' && <p class="hint mono dim">Откроется чат мастерской в Telegram с готовым текстом заявки — останется нажать «Отправить».</p>}
     <p class="err" data-form-error role="alert"></p>
   </form>
 
@@ -115,11 +115,11 @@ const channel = site.web3formsKey === 'YOUR_ACCESS_KEY' ? 'telegram' : 'email';
       <p class="dim">→ доставляю заявку… ok</p>
     </div>
     <p class="mono success__ok">✓ заявка принята</p>
-    <p class="success__text">Отвечу в течение дня. Если срочно — напишите в <a href={site.telegramUrl} target="_blank" rel="noopener">Telegram</a>.</p>
+    <p class="success__text">Ответим в течение дня. Если срочно — напишите в <a href={site.telegramUrl} target="_blank" rel="noopener">Telegram</a>.</p>
   </div>
   <div class="success" data-form-telegram hidden tabindex="-1">
     <p class="mono success__ok">✓ заявка готова</p>
-    <p class="success__text">Открылся чат со мной в Telegram с текстом заявки — нажмите «Отправить» в Telegram, и я отвечу в течение дня.</p>
+    <p class="success__text">Открылся чат мастерской в Telegram с текстом заявки — нажмите «Отправить» в Telegram, и мы ответим в течение дня.</p>
     <p class="success__text dim">Чат не открылся? <a data-telegram-link href={site.telegramUrl} target="_blank" rel="noopener">Открыть Telegram ↗</a> — текст заявки уже скопирован, его можно вставить.</p>
   </div>
   <p class="sr-only" data-form-status aria-live="polite"></p>

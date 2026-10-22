@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
-const H1 = 'Собираю сайты, приложения и ИИ-агентов';
+const H1 = 'Цифровая мастерская — сайты, приложения и ИИ-агенты';
+const H1_VISIBLE = 'Цифровая мастерская';
 
 test.describe('desktop', () => {
   test.skip(({ isMobile }) => isMobile);
@@ -11,8 +12,8 @@ test.describe('desktop', () => {
     expect(hrefs).toEqual(['#services', '#work', '#process', '#about', '#faq']);
     await expect(page.locator('h1')).toHaveCount(1);
     await expect(page.locator('h1')).toHaveAttribute('aria-label', H1);
-    await expect(page.locator('h1 .mark')).toContainText('ИИ-агентов');
-    await expect(page.locator('[data-hero-status]')).toContainText('available: принимаю заявки');
+    await expect(page.locator('h1 .mark')).toContainText('мастерская');
+    await expect(page.locator('[data-hero-status]')).toContainText('available: принимаем заявки');
     await expect(page.locator('[data-header] a.btn--primary')).toHaveAttribute('href', '#contact');
   });
 
@@ -28,7 +29,7 @@ test.describe('desktop', () => {
     // innerText не включает скрытые (ещё не напечатанные) символы.
     await expect
       .poll(async () => (await page.locator('h1').innerText()).replace(/\s+/g, ' ').trim(), { timeout: 5000 })
-      .toBe(H1 + '▊');
+      .toBe(H1_VISIBLE + '▊');
   });
 });
 
@@ -62,6 +63,6 @@ test.describe('reduced motion', () => {
   test('h1 is complete immediately', async ({ page }) => {
     await page.goto('/');
     const text = await page.locator('h1').innerText();
-    expect(text.replace(/\s+/g, ' ')).toContain(H1);
+    expect(text.replace(/\s+/g, ' ')).toContain(H1_VISIBLE);
   });
 });

@@ -98,7 +98,7 @@ export function initForm(form: HTMLFormElement, endpoint = 'https://api.web3form
       success.hidden = false;
       success.focus();
     }
-    if (status) status.textContent = 'Заявка принята. Отвечу в течение дня.';
+    if (status) status.textContent = 'Заявка принята. Ответим в течение дня.';
   };
 
   const setSending = (on: boolean) => {

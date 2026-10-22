@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test';
 
-test('about: photo, stack and links', async ({ page }) => {
+test('about: no personal photo, stack and links', async ({ page }) => {
   await page.goto('/');
   const about = page.locator('#about');
-  const alt = await about.locator('img').getAttribute('alt');
-  expect(alt && alt.length > 0).toBeTruthy();
+  await expect(about.locator('img')).toHaveCount(0);
+  await expect(about).toContainText('О мастерской');
   await expect(about.locator('[data-stack] li')).toHaveCount(10);
   await expect(about.locator('a', { hasText: 'github' })).toHaveCount(0);
   await expect(page.locator('a[href*="github.com/username"]')).toHaveCount(0);
@@ -29,6 +29,7 @@ test('faq: seven closed items, open by click and keyboard', async ({ page }) => 
 test('footer: privacy link and closing line', async ({ page }) => {
   await page.goto('/');
   const footer = page.locator('footer');
-  await expect(footer.locator('a', { hasText: 'политика конфиденциальности' })).toHaveAttribute('href', '/privacy');
+  await expect(footer.locator('a', { hasText: 'политика обработки данных' })).toHaveAttribute('href', '/privacy');
+  await expect(footer.locator('a', { hasText: 'согласие на обработку данных' })).toHaveAttribute('href', '/consent');
   await expect(footer).toContainText('$ exit — спасибо, что дочитали_');
 });

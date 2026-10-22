@@ -20,22 +20,17 @@ test('single file loads with zero external requests', async ({ page }) => {
   await page.waitForLoadState('load');
   expect(external).toEqual([]);
   expect(failed).toEqual([]);
-  await expect(page.locator('h1')).toHaveAttribute('aria-label', 'Собираю сайты, приложения и ИИ-агентов');
+  await expect(page.locator('h1')).toHaveAttribute('aria-label', 'Цифровая мастерская — сайты, приложения и ИИ-агенты');
   // Шрифты встроены и загружены.
   const fonts = await page.evaluate(async () => {
-    const onest = await document.fonts.load('800 40px "Onest Variable"', 'Собираю');
+    const onest = await document.fonts.load('800 40px "Onest Variable"', 'Цифровая');
     const mono = await document.fonts.load('400 14px "JetBrains Mono Variable"', 'статус');
     return [...onest, ...mono].map((f) => f.status);
   });
   expect(fonts.length).toBeGreaterThanOrEqual(2);
   expect(fonts.every((s) => s === 'loaded')).toBe(true);
-  // Фото встроено.
-  const photo = page.locator('#about img');
-  await photo.scrollIntoViewIfNeeded(); // у фото loading="lazy"
-  await expect
-    .poll(() => photo.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0))
-    .toBe(true);
-  expect(await photo.getAttribute('src')).toMatch(/^data:image\//);
+  // Личного фото на странице нет.
+  await expect(page.locator('#about img')).toHaveCount(0);
   expect(statSync('dist-single/index.html').size).toBeLessThan(1_500_000);
 });
 
@@ -58,7 +53,7 @@ test('single file: interactive elements work on mobile', async ({ page }) => {
 
 test('single file: privacy link works inside the file', async ({ page }) => {
   await page.goto(FILE);
-  const link = page.locator('footer a', { hasText: 'политика конфиденциальности' });
+  const link = page.locator('footer a', { hasText: 'политика обработки данных' });
   await expect(link).toHaveAttribute('href', '#privacy');
   await link.click();
   await expect(page.locator('#privacy h2').first()).toBeVisible();
@@ -66,8 +61,13 @@ test('single file: privacy link works inside the file', async ({ page }) => {
   const sizes = await page.locator('#privacy h2:not(.privacy-title)').evaluateAll((els) =>
     els.map((e) => getComputedStyle(e).fontSize),
   );
-  expect(sizes.length).toBe(7);
+  expect(sizes.length).toBe(10);
   expect(new Set(sizes)).toEqual(new Set(['20px']));
+  // Согласие тоже встроено отдельным разделом.
+  const consent = page.locator('footer a', { hasText: 'согласие на обработку данных' });
+  await expect(consent).toHaveAttribute('href', '#consent');
+  await consent.click();
+  await expect(page.locator('#consent h2').first()).toBeVisible();
 });
 
 test('single file runs the form in demo mode', async ({ page }) => {

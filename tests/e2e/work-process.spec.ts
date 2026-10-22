@@ -23,7 +23,8 @@ test('two real projects first, agent demo labelled honestly', async ({ page }) =
 test('about text speaks about beauty and creativity', async ({ page }) => {
   await page.goto('/');
   const about = page.locator('#about');
-  await expect(about).toContainText('Я Лилия');
+  await expect(about).toContainText('Цифровая мастерская');
+  await expect(about).not.toContainText('Лилия');
   await expect(about).toContainText('красот');
   await expect(about).toContainText(/творчеств/i);
   await expect(about).not.toContainText('Начинала с сайтов');
