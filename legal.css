@@ -1,0 +1,18 @@
+/* Общие стили юридических страниц Mini App (политика, согласие) — в стиле портфолио «Цифровая мастерская». */
+@font-face { font-family: 'Onest Variable'; font-display: swap; font-weight: 100 900; src: url('fonts/onest-cyrillic-wght-normal.woff2') format('woff2-variations'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: 'Onest Variable'; font-display: swap; font-weight: 100 900; src: url('fonts/onest-latin-wght-normal.woff2') format('woff2-variations'); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2116, U+2122; }
+@font-face { font-family: 'JetBrains Mono Variable'; font-display: swap; font-weight: 100 800; src: url('fonts/jetbrains-mono-cyrillic-wght-normal.woff2') format('woff2-variations'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: 'JetBrains Mono Variable'; font-display: swap; font-weight: 100 800; src: url('fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2-variations'); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122; }
+:root { color-scheme: dark; --bg: #060a08; --surface: #101814; --text: #e3ebdd; --muted: #8a9a88; --accent: #39bcdf; --lime: #a8f145; --line: #1f2a24; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.6 'Onest Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+main { max-width: 680px; margin: 0 auto; padding: 24px 16px 48px; }
+h1 { margin: 0 0 4px; font-size: 24px; line-height: 1.2; letter-spacing: -0.01em; }
+.date { margin: 0 0 20px; color: var(--muted); font-family: 'JetBrains Mono Variable', ui-monospace, monospace; font-size: 13px; }
+section { margin: 0 0 12px; padding: 16px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
+h2 { margin: 0 0 8px; font-size: 17px; }
+h2::before { content: '// '; color: var(--lime); font-family: 'JetBrains Mono Variable', ui-monospace, monospace; font-weight: 400; }
+p { margin: 0 0 8px; overflow-wrap: anywhere; } p:last-child { margin-bottom: 0; }
+a { color: var(--accent); text-underline-offset: 3px; }
+.note { margin-top: 16px; text-align: center; font-family: 'JetBrains Mono Variable', ui-monospace, monospace; font-size: 14px; }
+.draft { margin: 0 0 16px; padding: 10px 14px; border: 1px solid var(--lime); border-radius: 2px; color: var(--lime); font-family: 'JetBrains Mono Variable', ui-monospace, monospace; font-size: 13px; }
